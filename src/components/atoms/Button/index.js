@@ -1,5 +1,6 @@
 import React from "react";
 import {Text, View, StyleSheet, TouchableOpacity} from "react-native";
+import {colors} from "../../../utils/colors";
 
 const Button = ({type, title, onPress}) => {
   return (
@@ -15,7 +16,10 @@ export default Button;
 
 const styles = StyleSheet.create({
   container: type => ({
-    backgroundColor: type === "secondary" ? "white" : "#00C4FF",
+    backgroundColor:
+      type === "secondary"
+        ? colors.button.secondary.background
+        : colors.button.primary.background,
     borderRadius: 10,
     paddingVertical: 10,
   }),
@@ -23,7 +27,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     textAlign: "center",
-    color: type === "secondary" ? "black" : "white",
+    color:
+      type === "secondary"
+        ? colors.button.secondary.text
+        : colors.button.primary.text,
     fontFamily: "Nunito-SemiBold",
   }),
 });
