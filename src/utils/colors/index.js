@@ -12,7 +12,7 @@ export const colors = {
   black: "black",
   text: {
     primary: mainColors.dark1,
-    scondary: mainColors.grey1,
+    secondary: mainColors.grey1,
   },
   button: {
     primary: {

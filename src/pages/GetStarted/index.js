@@ -2,6 +2,7 @@ import React from "react";
 import {StyleSheet, Text, View, Image, ImageBackground} from "react-native";
 import {IMLogoBalobe, IMGetStarted} from "../../assets";
 import {Button, Gap} from "../../components";
+import {fonts} from "../../utils";
 
 const GetStarted = ({navigation}) => {
   return (
@@ -16,14 +17,17 @@ const GetStarted = ({navigation}) => {
         <Button
           title="Masuk"
           onPress={() => {
-            navigation.navigate('Login');
+            navigation.navigate("Login");
           }}
         />
         <Gap height={10} />
-        <Button title="Daftar" type="secondary"
-        onPress={() => {
-          navigation.navigate('Register');
-        }} />
+        <Button
+          title="Daftar"
+          type="secondary"
+          onPress={() => {
+            navigation.navigate("Register");
+          }}
+        />
       </View>
     </ImageBackground>
   );
@@ -42,6 +46,6 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "black",
     marginTop: 71,
-    fontFamily: "Nunito-SemiBold",
+    fontFamily: fonts.primary[600],
   },
 });

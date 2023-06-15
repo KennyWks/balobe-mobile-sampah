@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import {StyleSheet, Text, View, Image} from "react-native";
 import {IMLogoBalobe} from "../../assets";
+import {colors, fonts} from "../../utils";
 
 const Splash = ({navigation}) => {
   useEffect(() => {
@@ -32,11 +33,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: colors.white,
   },
   textLogo: {
     color: "#007bff",
     fontSize: 40,
-    fontFamily: "Nunito-SemiBold",
+    fontFamily: fonts.primary[600],
   },
 });

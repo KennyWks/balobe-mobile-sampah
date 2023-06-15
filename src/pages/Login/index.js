@@ -2,6 +2,7 @@ import React from "react";
 import {StyleSheet, Text, View, Image} from "react-native";
 import {IMLogoBalobe} from "../../assets";
 import {Input, Link, Button, Gap} from "../../components";
+import {colors, fonts} from "../../utils";
 
 const Login = () => {
   return (
@@ -33,7 +34,7 @@ export default Login;
 const styles = StyleSheet.create({
   page: {
     padding: 40,
-    backgroundColor: "white",
+    backgroundColor: colors.white,
     flex: 1,
   },
   logoImg: {
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontFamily: "Nunito-SemiBold",
+    fontFamily: fonts.primary[600],
     color: "#112340",
     marginVertical: 40,
     maxWidth: 220,
