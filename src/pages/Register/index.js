@@ -27,9 +27,9 @@ const Register = ({navigation}) => {
         <Gap height={40} />
         <View>
           <Button
-            title="Kirim"
+            title="Upload Foto"
             onPress={() => {
-              alert("ok");
+              navigation.navigate("UploadPhoto");
             }}
           />
         </View>
