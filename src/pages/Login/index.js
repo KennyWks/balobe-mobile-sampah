@@ -4,7 +4,7 @@ import {IMLogoBalobe} from "../../assets";
 import {Input, Link, Button, Gap} from "../../components";
 import {colors, fonts} from "../../utils";
 
-const Login = () => {
+const Login = ({navigation}) => {
   return (
     <View style={styles.page}>
       <Image source={IMLogoBalobe} />
@@ -19,7 +19,7 @@ const Login = () => {
         <Button
           title="Kirim"
           onPress={() => {
-            alert("ok");
+            navigation.replace("MainApp");
           }}
         />
       </View>
