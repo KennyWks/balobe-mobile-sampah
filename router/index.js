@@ -12,13 +12,14 @@ import {
   Account,
 } from "../src/pages";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import BottomNavigator from "../src/components/molecules/BottomNavigator";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const MainApp = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator tabBar={props => <BottomNavigator {...props} />}>
       <Tab.Screen name="Beranda" component={Home} />
       <Tab.Screen name="Pesanan" component={Orders} />
       <Tab.Screen name="Chat" component={Messages} />
