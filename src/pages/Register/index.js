@@ -1,9 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import {StyleSheet, View} from "react-native";
-import {Header, Input, Button, Gap} from "../../components";
+import {Header, Input, Button, Gap, Dropdown} from "../../components";
 import {colors} from "../../utils/colors";
 
 const Register = ({navigation}) => {
+  const [gender, setGender] = useState([
+    {label: "Laki-laki", value: "Laki-laki"},
+    {label: "Perempuan", value: "Perempuan"},
+  ]);
+
   return (
     <View style={styles.page}>
       <Header
@@ -15,16 +20,18 @@ const Register = ({navigation}) => {
       <View style={styles.content}>
         <Input label="Nama Lengkap" />
         <Gap height={24} />
+        <Input label="Tanggal Lahir" />
+        <Dropdown label={"Jenis Kelamin"} data={gender} />
         <Input label="Pekerjaan" />
-        <Gap height={24} />
-        <Input label="Alamat" />
-        <Gap height={24} />
-        <Input label="Nomor HP" />
         <Gap height={24} />
         <Input label="Email" />
         <Gap height={24} />
         <Input label="Password" />
         <Gap height={40} />
+        <Input label="Nomor HP" />
+        <Gap height={24} />
+        <Input label="Alamat" />
+        <Gap height={24} />
         <View>
           <Button
             title="Upload Foto"
