@@ -4,7 +4,6 @@ import {colors} from "../../../utils";
 import {TabItem} from "../../atoms";
 
 export default function BottomNavigator({state, descriptors, navigation}) {
-  console.log(state);
   return (
     <View style={styles.container}>
       {state.routes.map((route, index) => {
@@ -57,8 +56,15 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 53,
+    paddingHorizontal: 80,
     paddingVertical: 12,
     backgroundColor: colors.white,
+    borderRadius: 15,
+    left: 10,
+    right: 10,
+    bottom: 20,
+    position: "absolute",
+    borderColor: colors.text.secondary,
+    borderWidth: 0.5,
   },
 });
