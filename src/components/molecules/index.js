@@ -1,5 +1,15 @@
 import Header from "./Header";
 import BottomNavigator from "./BottomNavigator";
-import ListChat from "./ListChat";
+import ChatsItem from "./ChatsItem";
+import NewsItem from "./NewsItem";
+import OrdersItem from "./OrdersItem";
+import PickupDropOff from "./PickupDropOff";
 
-export {Header, BottomNavigator, ListChat};
+export {
+  Header,
+  BottomNavigator,
+  ChatsItem,
+  NewsItem,
+  OrdersItem,
+  PickupDropOff,
+};

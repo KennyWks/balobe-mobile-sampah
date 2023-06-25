@@ -2,13 +2,13 @@ import {Image, StyleSheet, Text, View} from "react-native";
 import React from "react";
 import {colors, fonts} from "../../../utils";
 
-export default function ListChat({user}) {
+export default function ChatsItem({user, name, dec}) {
   return (
     <View style={styles.container}>
       <Image source={user} style={styles.avatar} />
       <View>
-        <Text style={styles.name}>Nama Pengepul</Text>
-        <Text style={styles.desc}>Terima Kasih</Text>
+        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.desc}>{dec}</Text>
       </View>
     </View>
   );
@@ -17,7 +17,7 @@ export default function ListChat({user}) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    padding: 16,
+    padding: 10,
     borderBottomColor: colors.border,
     borderBottomColor: 1,
     alignItems: "center",

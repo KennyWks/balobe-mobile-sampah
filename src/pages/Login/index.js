@@ -24,7 +24,14 @@ const Login = ({navigation}) => {
         />
       </View>
       <Gap height={30} />
-      <Link title="Buat akun baru" size={16} align="center" />
+      <Link
+        title="Buat akun baru"
+        size={16}
+        align="center"
+        onPress={() => {
+          navigation.navigate("Register");
+        }}
+      />
     </View>
   );
 };

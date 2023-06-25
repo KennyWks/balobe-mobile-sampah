@@ -1,13 +1,17 @@
 const mainColors = {
-  green1: "#0BCAD4",
+  blue1: "#0BCAD4",
   dark1: "#112340",
+  green1: "#E1ECC8",
+  blue2: "#C1ECE4",
   grey1: "#7D8797",
   grey2: "#E9E9E9",
 };
 
 export const colors = {
-  primary: mainColors.green1,
+  primary: mainColors.blue1,
   secondary: mainColors.dark1,
+  greenLight: mainColors.green1,
+  blueLight: mainColors.blue2,
   white: "white",
   black: "black",
   text: {
@@ -16,7 +20,7 @@ export const colors = {
   },
   button: {
     primary: {
-      background: mainColors.green1,
+      background: mainColors.blue1,
       text: "white",
     },
     secondary: {
