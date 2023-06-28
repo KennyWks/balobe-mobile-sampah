@@ -4,6 +4,12 @@ import HomeProfile from "../../components/molecules/HomeProfile";
 import NewsItem from "../../components/molecules/NewsItem";
 import {colors, fonts} from "../../utils";
 import PickupDropOff from "../../components/molecules/PickupDropOff";
+import {
+  UserProfile1,
+  UserProfile2,
+  UserProfile3,
+  UserProfile4,
+} from "../../assets";
 
 export default function Home({navigation}) {
   return (
@@ -13,19 +19,41 @@ export default function Home({navigation}) {
         <PickupDropOff
           name="Pickup"
           desc="Mitra akan menjemput sampahmu"
-          icon="text-box"
+          icon="truck-fast-outline"
           color={colors.greenLight}
           onPress={() => {}}
         />
         <PickupDropOff
-          name="Pickup"
+          name="Drop Off"
           desc="Mitra akan menjemput sampahmu"
-          icon="text-box"
+          icon="package-variant"
           color={colors.blueLight}
           onPress={() => {}}
         />
         <Text style={styles.sectionLabel}>Berita</Text>
-        <NewsItem />
+        <NewsItem
+          title="Lorem ipsum dolor sit amet 
+          iste perspiciatis veritatis qui!"
+          date="1-01-2021 10:09"
+          image={UserProfile1}
+        />
+        <NewsItem
+          title="Consectetur adipisicing elit. Explicabo
+          iste perspiciatis veritatis qui!"
+          date="8-08-2021 08:09"
+          image={UserProfile2}
+        />
+        <NewsItem
+          title="Explicabo iste perspiciatis veritatis qui!"
+          date="Today"
+          image={UserProfile3}
+        />
+        <NewsItem
+          title="Adipisicing elit. Explicabo
+          iste perspiciatis veritatis qui!"
+          date="17-01-2021 16:09"
+          image={UserProfile4}
+        />
       </ScrollView>
     </View>
   );

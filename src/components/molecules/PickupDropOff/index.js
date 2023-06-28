@@ -20,7 +20,8 @@ export default function PickupDropOff({icon, name, desc, onPress, color}) {
 const styles = StyleSheet.create({
   container: color => ({
     flexDirection: "row",
-    padding: 16,
+    paddingVertical: 8,
+    paddingHorizontal: 10,
     borderBottomColor: colors.border,
     borderBottomColor: 1,
     alignItems: "center",
@@ -33,12 +34,12 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 16,
-    fontFamily: fonts.primary.normal,
+    fontFamily: fonts.primary[700],
     color: colors.text.primary,
   },
   desc: {
     fontSize: 13,
-    fontFamily: fonts.primary[300],
+    fontFamily: fonts.primary[500],
     color: colors.text.secondary,
   },
   wrapperFeatures: {flexDirection: "column"},

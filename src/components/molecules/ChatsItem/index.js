@@ -1,26 +1,43 @@
-import {Image, StyleSheet, Text, View} from "react-native";
+import {Image, StyleSheet, Text, View, TouchableOpacity} from "react-native";
 import React from "react";
 import {colors, fonts} from "../../../utils";
+import MiIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
-export default function ChatsItem({user, name, dec}) {
+export default function ChatsItem({user, name, dec, onPress}) {
   return (
-    <View style={styles.container}>
-      <Image source={user} style={styles.avatar} />
-      <View>
-        <Text style={styles.name}>{name}</Text>
-        <Text style={styles.desc}>{dec}</Text>
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.wrappContainer}>
+        <View style={styles.container}>
+          <Image source={user} style={styles.avatar} />
+          <View>
+            <Text style={styles.name}>{name}</Text>
+            <Text style={styles.desc}>{dec}</Text>
+          </View>
+        </View>
+        <MiIcon
+          name={"chevron-right"}
+          size={30}
+          color={colors.secondary}
+          style={styles.icon}
+        />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
+  wrappContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    borderBottomColor: colors.border,
+    borderBottomWidth: 1,
+    alignItems: "center",
+    paddingHorizontal: 15,
+  },
   container: {
     flexDirection: "row",
+    justifyContent: "space-between",
     padding: 10,
-    borderBottomColor: colors.border,
-    borderBottomColor: 1,
-    alignItems: "center",
   },
   avatar: {
     width: 70,

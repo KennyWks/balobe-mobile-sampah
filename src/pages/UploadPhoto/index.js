@@ -4,10 +4,10 @@ import {Button, Gap, Header, Link} from "../../components";
 import {ILPhotoProfileIsNull, IconPlus} from "../../assets";
 import {colors, fonts} from "../../utils";
 
-export default function UploadPhoto({onPress}) {
+export default function UploadPhoto({navigation}) {
   return (
     <View style={styles.page}>
-      <Header title="Unggah Foto Profil" onPress={onPress} />
+      <Header title="Unggah Foto Profil" navigation={navigation} />
       <View style={styles.content}>
         <View style={styles.profile}>
           <View style={styles.avatarWrapper}>

@@ -4,6 +4,7 @@ import ChatsItem from "./ChatsItem";
 import NewsItem from "./NewsItem";
 import OrdersItem from "./OrdersItem";
 import PickupDropOff from "./PickupDropOff";
+import Profile from "./Profile";
 
 export {
   Header,
@@ -12,4 +13,5 @@ export {
   NewsItem,
   OrdersItem,
   PickupDropOff,
+  Profile,
 };

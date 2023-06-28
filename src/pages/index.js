@@ -6,6 +6,7 @@ import UploadPhoto from "./UploadPhoto";
 import Home from "./Home";
 import Messages from "./Messages";
 import Orders from "./Orders";
+import DetailOrder from "./DetailOrder";
 import Account from "./Account";
 
 export {
@@ -17,5 +18,6 @@ export {
   Home,
   Messages,
   Orders,
+  DetailOrder,
   Account,
 };

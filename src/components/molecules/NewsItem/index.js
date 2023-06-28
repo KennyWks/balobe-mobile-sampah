@@ -1,19 +1,15 @@
 import {StyleSheet, Text, View, Image} from "react-native";
 import React from "react";
-import {UserProfile1} from "../../../assets";
 import {colors, fonts} from "../../../utils";
 
-export default function NewsItem() {
+export default function NewsItem({title, date, image}) {
   return (
     <View style={styles.container}>
       <View style={styles.titleWrapper}>
-        <Text style={styles.title}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo
-          iste perspiciatis veritatis qui!
-        </Text>
-        <Text style={styles.date}>Today</Text>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.date}>{date}</Text>
       </View>
-      <Image source={UserProfile1} style={styles.image} />
+      <Image source={image} style={styles.image} />
     </View>
   );
 }
@@ -37,6 +33,7 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.border,
     paddingBottom: 12,
     paddingBottom: 16,
+    marginBottom: 5,
   },
   image: {
     width: 80,

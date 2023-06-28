@@ -20,9 +20,24 @@ export default function Messages() {
             dec="Hallo, barang sudah diproses"
             user={UserProfile1}
           />
-          <ChatsItem name="Rudi" dec="Bt sudah di lokasi" user={UserProfile2} />
-          <ChatsItem name="Rini" dec="Salah hitung bro" user={UserProfile3} />
-          <ChatsItem name="Ani" dec="Su sampe ko?" user={UserProfile4} />
+          <ChatsItem
+            name="Rudi"
+            dec="Bt sudah di lokasi"
+            user={UserProfile2}
+            onPress={() => {}}
+          />
+          <ChatsItem
+            name="Rini"
+            dec="Salah hitung bro"
+            user={UserProfile3}
+            onPress={() => {}}
+          />
+          <ChatsItem
+            name="Ani"
+            dec="Su sampe ko?"
+            user={UserProfile4}
+            onPress={() => {}}
+          />
         </ScrollView>
       </View>
     </View>

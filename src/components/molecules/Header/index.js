@@ -3,10 +3,16 @@ import React from "react";
 import {Button, Gap} from "../../atoms";
 import {colors, fonts} from "../../../utils";
 
-export default function Header({onPress, title}) {
+export default function Header({navigation, title}) {
   return (
     <View style={styles.container}>
-      <Button type="icon-only" icon="back-dark" onPress={onPress} />
+      <Button
+        type="icon-only"
+        icon="back-dark"
+        onPress={() => {
+          navigation.goBack();
+        }}
+      />
       <Text style={styles.text}>{title}</Text>
       <Gap width={24} />
     </View>
@@ -20,6 +26,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     flexDirection: "row",
     alignItems: "center",
+    borderBottomWidth: 0.5,
+    marginBottom: 20,
   },
   text: {
     textAlign: "center",

@@ -3,32 +3,48 @@ import React from "react";
 import {colors, fonts} from "../../../utils";
 import MiIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
-export default function OrdersItem({name, desc, onPress}) {
+const Profile = ({icon, name, onPress, appVersion}) => {
+  const DirectIcon = () => {
+    if (appVersion !== "" && appVersion !== "logout") {
+      return <Text>{appVersion}</Text>;
+    }
+
+    if (appVersion === "logout") {
+      return <></>;
+    }
+    return (
+      <MiIcon
+        name={"chevron-right"}
+        size={30}
+        color={colors.secondary}
+        style={styles.directIcon}
+      />
+    );
+  };
+
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.wrappContainer}>
         <View style={styles.container}>
           <MiIcon
-            name={"text-box"}
-            size={70}
+            name={icon}
+            size={30}
             color={colors.secondary}
             style={styles.icon}
           />
-          <View>
+          <View style={styles.wrappMenu}>
             <Text style={styles.name}>{name}</Text>
-            <Text style={styles.desc}>{desc}</Text>
           </View>
         </View>
-        <MiIcon
-          name={"chevron-right"}
-          size={30}
-          color={colors.secondary}
-          style={styles.icon}
-        />
+        <View style={styles.wrappTextIcon}>
+          <DirectIcon />
+        </View>
       </View>
     </TouchableOpacity>
   );
-}
+};
+
+export default Profile;
 
 const styles = StyleSheet.create({
   wrappContainer: {
@@ -37,23 +53,27 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.border,
     borderBottomWidth: 1,
     alignItems: "center",
+    padding: 10,
   },
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 10,
   },
   icon: {
     marginRight: 12,
+  },
+  directIcon: {},
+  wrappMenu: {
+    alignItems: "center",
+    flexDirection: "row",
   },
   name: {
     fontSize: 16,
     fontFamily: fonts.primary.normal,
     color: colors.text.primary,
   },
-  desc: {
-    fontSize: 13,
-    fontFamily: fonts.primary[300],
-    color: colors.text.secondary,
+  wrappTextIcon: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
   },
 });

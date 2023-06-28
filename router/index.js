@@ -8,6 +8,7 @@ import {
   UploadPhoto,
   Home,
   Orders,
+  DetailOrder,
   Messages,
   Account,
 } from "../src/pages";
@@ -54,6 +55,10 @@ const Router = () => {
       <Stack.Screen
         name="MainApp"
         component={MainApp}
+        options={{headerShown: false}}></Stack.Screen>
+      <Stack.Screen
+        name="DetailOrder"
+        component={DetailOrder}
         options={{headerShown: false}}></Stack.Screen>
     </Stack.Navigator>
   );
