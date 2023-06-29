@@ -1,6 +1,13 @@
 import React, {useState} from "react";
 import {ScrollView, StyleSheet, View} from "react-native";
-import {Header, Input, Button, Gap, Dropdown} from "../../components";
+import {
+  Header,
+  Input,
+  Button,
+  Gap,
+  Dropdown,
+  DatePicker,
+} from "../../components";
 import {colors} from "../../utils/colors";
 
 const Register = ({navigation}) => {
@@ -14,19 +21,55 @@ const Register = ({navigation}) => {
       <Header title={"Daftar Akun Baru"} navigation={navigation} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
-          <Input label="Nama Lengkap" />
+          <Input
+            isPassword={false}
+            type="inputtext"
+            keyboardType="default"
+            label="Nama"
+          />
+          <Gap height={22} />
+          <DatePicker label="Tanggal Lahir" onChoose={value => {}} />
+          <Gap height={22} />
+          <Dropdown
+            label={"Jenis Kelamin"}
+            data={gender}
+            onValueChange={value => {}}
+          />
           <Gap height={24} />
-          <Input label="Tanggal Lahir" />
-          <Dropdown label={"Jenis Kelamin"} data={gender} />
-          <Input label="Pekerjaan" />
+          <Input
+            isPassword={false}
+            type="inputtext"
+            keyboardType="default"
+            label="Pekerjaan"
+          />
           <Gap height={24} />
-          <Input label="Email" />
+          <Input
+            isPassword={false}
+            type="inputtext"
+            keyboardType="email-address"
+            label="Email"
+          />
           <Gap height={24} />
-          <Input label="Password" />
+          <Input
+            isPassword={true}
+            type="inputtext"
+            keyboardType="default"
+            label="Password"
+          />
           <Gap height={40} />
-          <Input label="Nomor HP" />
+          <Input
+            isPassword={false}
+            type="inputtext"
+            keyboardType="phone-pad"
+            label="Nomor HP"
+          />
           <Gap height={24} />
-          <Input label="Alamat" />
+          <Input
+            isPassword={false}
+            type="textarea"
+            keyboardType="default"
+            label="Alamat"
+          />
           <Gap height={24} />
           <View>
             <Button

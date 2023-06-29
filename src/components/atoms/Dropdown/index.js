@@ -3,11 +3,12 @@ import {StyleSheet, Text, View} from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import {colors} from "../../../utils";
 
-function Dropdown({label, data}) {
+function Dropdown({label, data, onValueChange}) {
   return (
     <View style={styles.container}>
       <Text style={styles.textLabel}>{label}</Text>
       <RNPickerSelect
+        onValueChange={onValueChange}
         placeholder={{
           label: `Pilih ${label}`,
           value: null,
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: 1,
     borderRadius: 10,
-    borderColor: colors.border.default,
+    borderColor: colors.border,
     padding: 8,
     marginVertical: 10,
   },

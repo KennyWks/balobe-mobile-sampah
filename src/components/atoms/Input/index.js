@@ -2,11 +2,32 @@ import React from "react";
 import {View, StyleSheet, Text, TextInput} from "react-native";
 import {colors, fonts} from "../../../utils";
 
-const Input = ({label}) => {
+const Input = ({label, type, isPassword, keyboardType}) => {
+  const InputComponent = () => {
+    if (type === "textarea") {
+      return (
+        <TextInput
+          secureTextEntry={isPassword}
+          multiline
+          numberOfLines={6}
+          style={styles.input}
+          keyboardType={keyboardType}
+        />
+      );
+    } else {
+      return (
+        <TextInput
+          secureTextEntry={isPassword}
+          style={styles.input}
+          keyboardType={keyboardType}
+        />
+      );
+    }
+  };
   return (
     <View>
       <Text style={styles.label}>{label}</Text>
-      <TextInput style={styles.input} />
+      <InputComponent />
     </View>
   );
 };
