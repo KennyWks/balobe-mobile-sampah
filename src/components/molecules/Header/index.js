@@ -26,8 +26,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     flexDirection: "row",
     alignItems: "center",
-    borderBottomWidth: 0.5,
-    marginBottom: 20,
+    borderBottomWidth: 0.2,
   },
   text: {
     textAlign: "center",

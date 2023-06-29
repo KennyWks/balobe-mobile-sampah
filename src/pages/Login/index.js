@@ -9,9 +9,19 @@ const Login = ({navigation}) => {
     <View style={styles.page}>
       <Image source={IMLogoBalobe} />
       <Text style={styles.title}>Masuk dan mulai menjual sampah anda.</Text>
-      <Input label="Alamat Email" />
+      <Input
+        isPassword={false}
+        type="inputtext"
+        keyboardType="default"
+        label="Alamat Email"
+      />
       <Gap height={24} />
-      <Input label="Kata Sandi" />
+      <Input
+        isPassword={false}
+        type="inputtext"
+        keyboardType="default"
+        label="Kata Sandi"
+      />
       <Gap height={10} />
       <Link title="Lupa Kata Sandi?" size={12} align="left" />
       <Gap height={40} />
