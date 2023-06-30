@@ -14,7 +14,7 @@ export default function Orders({navigation}) {
     <View style={styles.container}>
       <View style={styles.content}>
         <ScrollView>
-          <Text style={styles.title}>Daftar Order</Text>
+          <Text style={styles.title}>Daftar Pesanan</Text>
           {order.length > 0 &&
             order.map(v => (
               <OrdersItem

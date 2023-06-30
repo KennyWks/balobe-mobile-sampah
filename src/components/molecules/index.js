@@ -5,6 +5,8 @@ import NewsItem from "./NewsItem";
 import OrdersItem from "./OrdersItem";
 import PickupDropOff from "./PickupDropOff";
 import Profile from "./Profile";
+import ChatItem from "./ChatItem";
+import InputChat from "./InputChat";
 
 export {
   Header,
@@ -14,4 +16,6 @@ export {
   OrdersItem,
   PickupDropOff,
   Profile,
+  ChatItem,
+  InputChat,
 };

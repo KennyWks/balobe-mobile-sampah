@@ -7,7 +7,7 @@ export default function DetailOrder({route, navigation}) {
   const {name, desc} = route.params;
   return (
     <View style={styles.container}>
-      <Header title="Detail Pesanan" navigation={navigation} />
+      <Header type="default" title="Detail Pesanan" navigation={navigation} />
       <View style={styles.content}>
         <View>
           <Text>{name}</Text>

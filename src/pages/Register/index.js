@@ -18,7 +18,11 @@ const Register = ({navigation}) => {
 
   return (
     <View style={styles.page}>
-      <Header title={"Daftar Akun Baru"} navigation={navigation} />
+      <Header
+        type="default"
+        title={"Daftar Akun Baru"}
+        navigation={navigation}
+      />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
           <Input

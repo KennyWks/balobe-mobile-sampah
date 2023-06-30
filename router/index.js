@@ -11,6 +11,8 @@ import {
   DetailOrder,
   Messages,
   Account,
+  Chatting,
+  ReadNews,
 } from "../src/pages";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import BottomNavigator from "../src/components/molecules/BottomNavigator";
@@ -59,6 +61,14 @@ const Router = () => {
       <Stack.Screen
         name="DetailOrder"
         component={DetailOrder}
+        options={{headerShown: false}}></Stack.Screen>
+      <Stack.Screen
+        name="Chatting"
+        component={Chatting}
+        options={{headerShown: false}}></Stack.Screen>
+      <Stack.Screen
+        name="ReadNews"
+        component={ReadNews}
         options={{headerShown: false}}></Stack.Screen>
     </Stack.Navigator>
   );

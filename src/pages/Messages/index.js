@@ -9,34 +9,67 @@ import {
   UserProfile4,
 } from "../../assets";
 
-export default function Messages() {
+export default function Messages({navigation}) {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <ScrollView>
-          <Text style={styles.title}>Daftar Chat</Text>
+          <Text style={styles.title}>Daftar Pengguna</Text>
           <ChatsItem
             name="Budi"
             dec="Hallo, barang sudah diproses"
             user={UserProfile1}
+            onPress={() => {
+              navigation.navigate({
+                name: "Chatting",
+                params: {
+                  id: 1,
+                  name: "Budi",
+                },
+              });
+            }}
           />
           <ChatsItem
             name="Rudi"
             dec="Bt sudah di lokasi"
             user={UserProfile2}
-            onPress={() => {}}
+            onPress={() => {
+              navigation.navigate({
+                name: "Chatting",
+                params: {
+                  id: 2,
+                  name: "Rudi",
+                },
+              });
+            }}
           />
           <ChatsItem
             name="Rini"
             dec="Salah hitung bro"
             user={UserProfile3}
-            onPress={() => {}}
+            onPress={() => {
+              navigation.navigate({
+                name: "Chatting",
+                params: {
+                  id: 3,
+                  name: "Rini",
+                },
+              });
+            }}
           />
           <ChatsItem
             name="Ani"
             dec="Su sampe ko?"
             user={UserProfile4}
-            onPress={() => {}}
+            onPress={() => {
+              navigation.navigate({
+                name: "Chatting",
+                params: {
+                  id: 2,
+                  name: "Ani",
+                },
+              });
+            }}
           />
         </ScrollView>
       </View>

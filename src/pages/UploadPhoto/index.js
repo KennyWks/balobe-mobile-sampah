@@ -7,7 +7,11 @@ import {colors, fonts} from "../../utils";
 export default function UploadPhoto({navigation}) {
   return (
     <View style={styles.page}>
-      <Header title="Unggah Foto Profil" navigation={navigation} />
+      <Header
+        type="default"
+        title="Unggah Foto Profil"
+        navigation={navigation}
+      />
       <View style={styles.content}>
         <View style={styles.profile}>
           <View style={styles.avatarWrapper}>

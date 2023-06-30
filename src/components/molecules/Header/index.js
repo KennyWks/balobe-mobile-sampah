@@ -2,8 +2,12 @@ import {StyleSheet, Text, View} from "react-native";
 import React from "react";
 import {Button, Gap} from "../../atoms";
 import {colors, fonts} from "../../../utils";
+import DarkProfile from "./DarkProfile";
 
-export default function Header({navigation, title}) {
+export default function Header({navigation, title, type}) {
+  if (type === "profile") {
+    return <DarkProfile name={title} navigation={navigation} />;
+  }
   return (
     <View style={styles.container}>
       <Button

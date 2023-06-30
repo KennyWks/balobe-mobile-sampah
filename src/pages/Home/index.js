@@ -36,23 +36,59 @@ export default function Home({navigation}) {
           iste perspiciatis veritatis qui!"
           date="1-01-2021 10:09"
           image={UserProfile1}
+          onPress={() => {
+            navigation.navigate({
+              name: "ReadNews",
+              params: {
+                id: 1,
+                image: "",
+              },
+            });
+          }}
         />
         <NewsItem
           title="Consectetur adipisicing elit. Explicabo
           iste perspiciatis veritatis qui!"
           date="8-08-2021 08:09"
           image={UserProfile2}
+          onPress={() => {
+            navigation.navigate({
+              name: "ReadNews",
+              params: {
+                id: 2,
+                image: "",
+              },
+            });
+          }}
         />
         <NewsItem
           title="Explicabo iste perspiciatis veritatis qui!"
           date="Today"
           image={UserProfile3}
+          onPress={() => {
+            navigation.navigate({
+              name: "ReadNews",
+              params: {
+                id: 3,
+                image: "",
+              },
+            });
+          }}
         />
         <NewsItem
           title="Adipisicing elit. Explicabo
           iste perspiciatis veritatis qui!"
           date="17-01-2021 16:09"
           image={UserProfile4}
+          onPress={() => {
+            navigation.navigate({
+              name: "ReadNews",
+              params: {
+                id: 4,
+                image: "",
+              },
+            });
+          }}
         />
       </ScrollView>
     </View>

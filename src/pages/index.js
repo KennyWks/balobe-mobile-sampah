@@ -8,6 +8,8 @@ import Messages from "./Messages";
 import Orders from "./Orders";
 import DetailOrder from "./DetailOrder";
 import Account from "./Account";
+import Chatting from "./Chatting";
+import ReadNews from "./ReadNews";
 
 export {
   Splash,
@@ -20,4 +22,6 @@ export {
   Orders,
   DetailOrder,
   Account,
+  Chatting,
+  ReadNews,
 };
