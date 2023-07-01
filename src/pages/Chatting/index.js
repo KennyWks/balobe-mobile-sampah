@@ -6,16 +6,26 @@ import {colors, fonts} from "../../utils";
 export default function Chatting({navigation, route}) {
   const {id, name} = route.params;
   return (
-    <View>
+    <View style={styles.page}>
       <Header type="profile" title={name} navigation={navigation} />
-      <Text style={styles.chatDate}>Senin, 12 April 2022</Text>
-      <ChatItem />
+      <View style={styles.content}>
+        <Text style={styles.chatDate}>Senin, 12 April 2022</Text>
+        <ChatItem isMe message="Hallo, Barang su sampe ko?" time="4.30" />
+        <ChatItem message="Hallo, Dalam perjalanan" time="4.35" />
+      </View>
       <InputChat />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  page: {
+    backgroundColor: colors.white,
+    flex: 1,
+  },
+  content: {
+    flex: 1,
+  },
   chatDate: {
     fontSize: 11,
     fontFamily: fonts.primary.normal,

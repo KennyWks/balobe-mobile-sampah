@@ -1,13 +1,13 @@
 import {StyleSheet, Text, View} from "react-native";
 import React from "react";
-import {colors, fonts} from "../../../utils";
+import IsMe from "./IsMe";
+import Other from "./Other";
 
-export default function ChatItem({user, name, dec, onPress}) {
-  return (
-    <View>
-      <Text>ChatItem</Text>
-    </View>
-  );
+export default function ChatItem({isMe, message, time}) {
+  if (isMe) {
+    return <IsMe message={message} time={time} />;
+  }
+  return <Other message={message} time={time} />;
 }
 
 const styles = StyleSheet.create({});
