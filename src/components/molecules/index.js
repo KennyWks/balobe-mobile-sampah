@@ -4,6 +4,7 @@ import ChatsItem from "./ChatsItem";
 import NewsItem from "./NewsItem";
 import OrdersItem from "./OrdersItem";
 import PickupDropOff from "./PickupDropOff";
+import MenuProfile from "./MenuProfile";
 import Profile from "./Profile";
 import ChatItem from "./ChatItem";
 import InputChat from "./InputChat";
@@ -15,7 +16,8 @@ export {
   NewsItem,
   OrdersItem,
   PickupDropOff,
-  Profile,
+  MenuProfile,
   ChatItem,
   InputChat,
+  Profile,
 };

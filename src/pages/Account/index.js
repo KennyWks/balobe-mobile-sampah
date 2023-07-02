@@ -1,43 +1,39 @@
 import {ScrollView, StyleSheet, Text, View, Image} from "react-native";
 import React from "react";
-import {Profile} from "../../components";
+import {MenuProfile, Profile} from "../../components";
 import {colors, fonts} from "../../utils";
-import {UserProfile1} from "../../assets";
 
 export default function Account({navigation}) {
+  const point = 0;
   return (
     <View style={styles.container}>
-      <View style={styles.wrapperImage}>
-        <View style={styles.boderProfilImage}>
-          <Image source={UserProfile1} style={styles.avatar} />
-        </View>
-        <Text style={styles.name}>Kenny Wks</Text>
-        <Text style={styles.point}>0 Poin</Text>
+      <View style={styles.wrapperProfile}>
+        <Profile name="Kenny" desc={`${point} Poin`} />
       </View>
       <ScrollView>
-        <Profile
+        <MenuProfile
           icon="pencil-outline"
           name="Ubah Profil"
           appVersion=""
           onPress={() => {
-            // navigation.navigate('');
+            navigation.navigate("UpdateProfile");
           }}
         />
         <View style={styles.wrapperSubTitle}>
           <Text>Tentang</Text>
         </View>
-        <Profile icon="alert-circle-outline" name="Panduan" appVersion="" />
-        <Profile
+        <MenuProfile icon="alert-circle-outline" name="Panduan" appVersion="" />
+        <MenuProfile
           icon="text-box-check-outline"
           name="Syarat & Ketentuan"
           appVersion=""
         />
-        <Profile
+        <MenuProfile
           icon="shield-lock-outline"
           name="Kebijakan Privasi"
           appVersion=""
         />
-        <Profile
+        <MenuProfile
           icon="help-circle-outline"
           name="Pertanyaan Umum"
           appVersion=""
@@ -45,8 +41,8 @@ export default function Account({navigation}) {
         <View style={styles.wrapperSubTitle}>
           <Text>Lainnya</Text>
         </View>
-        <Profile icon="leaf" name="Versi Aplikasi" appVersion="1.0.0" />
-        <Profile icon="logout" name="Keluar" appVersion="logout" />
+        <MenuProfile icon="leaf" name="Versi Aplikasi" appVersion="1.0.0" />
+        <MenuProfile icon="logout" name="Keluar" appVersion="logout" />
       </ScrollView>
     </View>
   );
@@ -57,41 +53,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     flex: 1,
   },
-  wrapperImage: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginHorizontal: 20,
-    marginTop: 20,
-    marginBottom: 10,
-    paddingVertical: 10,
+  wrapperProfile: {
     backgroundColor: colors.greenLight,
     borderRadius: 15,
-  },
-  boderProfilImage: {
-    width: 130,
-    height: 130,
-    borderWidth: 1,
-    borderRadius: 130 / 2,
-    borderColor: "black",
+    margin: 20,
     justifyContent: "center",
     alignItems: "center",
-  },
-  avatar: {
-    width: 110,
-    height: 110,
-    borderRadius: 110 / 2,
-  },
-  name: {
-    fontSize: 20,
-    fontFamily: fonts.primary[600],
-    color: colors.text.primary,
-    marginTop: 16,
-  },
-  point: {
-    fontSize: 16,
-    fontFamily: fonts.primary[600],
-    color: colors.text.secondary,
-    marginTop: 2,
+    paddingVertical: 10,
   },
   wrapperSubTitle: {backgroundColor: colors.blueLight, padding: 10},
 });

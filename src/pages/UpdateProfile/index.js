@@ -1,5 +1,5 @@
+import {StyleSheet, View, ScrollView} from "react-native";
 import React, {useState} from "react";
-import {ScrollView, StyleSheet, View} from "react-native";
 import {
   Header,
   Input,
@@ -7,10 +7,12 @@ import {
   Gap,
   Dropdown,
   DatePicker,
+  Profile,
 } from "../../components";
-import {colors} from "../../utils/colors";
+import {colors} from "../../utils";
+import {IconRemove} from "../../assets";
 
-const Register = ({navigation}) => {
+export default function UpdateProfile({navigation}) {
   const [gender, setGender] = useState([
     {label: "Laki-laki", value: "Laki-laki"},
     {label: "Perempuan", value: "Perempuan"},
@@ -18,13 +20,15 @@ const Register = ({navigation}) => {
 
   return (
     <View style={styles.page}>
-      <Header
-        type="default"
-        title={"Daftar Akun Baru"}
-        navigation={navigation}
-      />
+      <Header navigation={navigation} title="Ubah Profil" />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.content}>
+        <View style={styles.profileContent}>
+          <View style={styles.wrapperProfile}>
+            <Profile />
+            <IconRemove style={styles.removeIcon} />
+          </View>
+        </View>
+        <View style={styles.formContent}>
           <Input
             isPassword={false}
             type="inputtext"
@@ -68,6 +72,12 @@ const Register = ({navigation}) => {
             label="Pekerjaan"
           />
           <Gap height={24} />
+          <Input
+            isPassword={false}
+            type="textarea"
+            keyboardType="default"
+            label="Alamat"
+          />
           <Gap height={24} />
           <View>
             <Button
@@ -81,20 +91,27 @@ const Register = ({navigation}) => {
       </ScrollView>
     </View>
   );
-};
-
-export default Register;
+}
 
 const styles = StyleSheet.create({
   page: {
     backgroundColor: colors.white,
     flex: 1,
   },
-  logoImg: {
-    width: "70%",
+  profileContent: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  wrapperProfile: {
+    width: 130,
     height: 130,
   },
-  content: {
+  removeIcon: {
+    position: "absolute",
+    right: 8,
+    bottom: 8,
+  },
+  formContent: {
     padding: 40,
     paddingTop: 0,
   },

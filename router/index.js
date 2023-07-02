@@ -13,6 +13,7 @@ import {
   Account,
   Chatting,
   ReadNews,
+  UpdateProfile,
 } from "../src/pages";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import BottomNavigator from "../src/components/molecules/BottomNavigator";
@@ -69,6 +70,10 @@ const Router = () => {
       <Stack.Screen
         name="ReadNews"
         component={ReadNews}
+        options={{headerShown: false}}></Stack.Screen>
+      <Stack.Screen
+        name="UpdateProfile"
+        component={UpdateProfile}
         options={{headerShown: false}}></Stack.Screen>
     </Stack.Navigator>
   );

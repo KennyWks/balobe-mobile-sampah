@@ -22,9 +22,21 @@ export default function UploadPhoto({navigation}) {
           <Text style={styles.proffesion}>Pekerjaan USer</Text>
         </View>
         <View>
-          <Button title="Unggah & Lanjutkan" />
+          <Button
+            title="Unggah & Lanjutkan"
+            onPress={() => {
+              navigation.replace("MainApp");
+            }}
+          />
           <Gap height={30} />
-          <Link title="Lewati proses ini" align="center" center={16} />
+          <Link
+            title="Lewati proses ini"
+            align="center"
+            center={16}
+            onPress={() => {
+              navigation.replace("MainApp");
+            }}
+          />
         </View>
       </View>
     </View>

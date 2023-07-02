@@ -10,6 +10,7 @@ import DetailOrder from "./DetailOrder";
 import Account from "./Account";
 import Chatting from "./Chatting";
 import ReadNews from "./ReadNews";
+import UpdateProfile from "./UpdateProfile";
 
 export {
   Splash,
@@ -24,4 +25,5 @@ export {
   Account,
   Chatting,
   ReadNews,
+  UpdateProfile,
 };

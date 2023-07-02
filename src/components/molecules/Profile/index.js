@@ -1,79 +1,50 @@
-import {TouchableOpacity, StyleSheet, Text, View} from "react-native";
+import {StyleSheet, Text, View, Image} from "react-native";
 import React from "react";
+import {UserProfile1} from "../../../assets";
 import {colors, fonts} from "../../../utils";
-import MiIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
-const Profile = ({icon, name, onPress, appVersion}) => {
-  const DirectIcon = () => {
-    if (appVersion !== "" && appVersion !== "logout") {
-      return <Text>{appVersion}</Text>;
-    }
-
-    if (appVersion === "logout") {
-      return <></>;
-    }
-    return (
-      <MiIcon
-        name={"chevron-right"}
-        size={30}
-        color={colors.secondary}
-        style={styles.directIcon}
-      />
-    );
-  };
-
+export default function Profile({name, desc}) {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={styles.wrappContainer}>
-        <View style={styles.container}>
-          <MiIcon
-            name={icon}
-            size={30}
-            color={colors.secondary}
-            style={styles.icon}
-          />
-          <View style={styles.wrappMenu}>
+    <View>
+      <View style={styles.borderProfilImage}>
+        <Image source={UserProfile1} style={styles.avatar} />
+        {name && (
+          <View style={styles.textWrapper}>
             <Text style={styles.name}>{name}</Text>
+            <Text style={styles.point}>{desc}</Text>
           </View>
-        </View>
-        <View style={styles.wrappTextIcon}>
-          <DirectIcon />
-        </View>
+        )}
       </View>
-    </TouchableOpacity>
+    </View>
   );
-};
-
-export default Profile;
+}
 
 const styles = StyleSheet.create({
-  wrappContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    borderBottomColor: colors.border,
-    borderBottomWidth: 1,
+  boderProfilImage: {
+    width: 130,
+    height: 130,
+    marginHorizontal: 20,
+    marginVertical: 10,
+    justifyContent: "center",
     alignItems: "center",
-    padding: 10,
+    paddingVertical: 10,
   },
-  container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  avatar: {
+    width: 110,
+    height: 110,
+    borderRadius: 110 / 2,
   },
-  icon: {
-    marginRight: 12,
-  },
-  directIcon: {},
-  wrappMenu: {
-    alignItems: "center",
-    flexDirection: "row",
-  },
+  textWrapper: {justifyContent: "center", alignItems: "center"},
   name: {
-    fontSize: 16,
-    fontFamily: fonts.primary.normal,
+    fontSize: 20,
+    fontFamily: fonts.primary[600],
     color: colors.text.primary,
+    marginTop: 16,
   },
-  wrappTextIcon: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
+  point: {
+    fontSize: 16,
+    fontFamily: fonts.primary[600],
+    color: colors.text.secondary,
+    marginTop: 2,
   },
 });
