@@ -2,14 +2,27 @@ import React from "react";
 import {StyleSheet, Text, View, Image} from "react-native";
 import {IMLogoBalobe} from "../../assets";
 import {Input, Link, Button, Gap} from "../../components";
-import {colors, fonts} from "../../utils";
+import {colors, fonts, useForm} from "../../utils";
 
 const Login = ({navigation}) => {
+  const [form, setForm] = useForm({
+    email: "",
+    password: "",
+  });
+
+  const onSubmit = () => {
+    console.log(form);
+    setForm("reset");
+    // navigation.replace("MainApp");
+  };
+
   return (
     <View style={styles.page}>
       <Image source={IMLogoBalobe} />
       <Text style={styles.title}>Masuk dan mulai menjual sampah anda.</Text>
       <Input
+        value={form.email}
+        onChangeText={value => setForm("email", value)}
         isPassword={false}
         type="inputtext"
         keyboardType="default"
@@ -17,7 +30,9 @@ const Login = ({navigation}) => {
       />
       <Gap height={24} />
       <Input
-        isPassword={false}
+        value={form.password}
+        onChangeText={value => setForm("password", value)}
+        isPassword={true}
         type="inputtext"
         keyboardType="default"
         label="Kata Sandi"
@@ -26,12 +41,7 @@ const Login = ({navigation}) => {
       <Link title="Lupa Kata Sandi?" size={12} align="left" />
       <Gap height={40} />
       <View>
-        <Button
-          title="Kirim"
-          onPress={() => {
-            navigation.replace("MainApp");
-          }}
-        />
+        <Button title="Kirim" onPress={onSubmit} />
       </View>
       <Gap height={30} />
       <Link

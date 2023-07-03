@@ -8,13 +8,30 @@ import {
   Dropdown,
   DatePicker,
 } from "../../components";
-import {colors} from "../../utils/colors";
+import {colors, useForm} from "../../utils";
 
 const Register = ({navigation}) => {
   const [gender, setGender] = useState([
     {label: "Laki-laki", value: "Laki-laki"},
     {label: "Perempuan", value: "Perempuan"},
   ]);
+
+  const [form, setForm] = useForm({
+    nama: "",
+    jk: "",
+    tglLahir: "",
+    noHP: "",
+    email: "",
+    password: "",
+    pekerjaan: "",
+  });
+
+  const onContinue = () => {
+    console.log(form);
+    setForm("reset");
+
+    // navigation.navigate("UploadPhoto");
+  };
 
   return (
     <View style={styles.page}>
@@ -26,6 +43,8 @@ const Register = ({navigation}) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
           <Input
+            value={form.name}
+            onChangeText={value => setForm("name", value)}
             isPassword={false}
             type="inputtext"
             keyboardType="default"
@@ -35,12 +54,21 @@ const Register = ({navigation}) => {
           <Dropdown
             label={"Jenis Kelamin"}
             data={gender}
-            onValueChange={value => {}}
+            onValueChange={value => {
+              setForm("jk", value);
+            }}
           />
           <Gap height={22} />
-          <DatePicker label="Tanggal Lahir" onChoose={value => {}} />
+          <DatePicker
+            label="Tanggal Lahir"
+            onChoose={value => {
+              setForm("tglLahir", value);
+            }}
+          />
           <Gap height={40} />
           <Input
+            value={form.noHP}
+            onChangeText={value => setForm("noHP", value)}
             isPassword={false}
             type="inputtext"
             keyboardType="phone-pad"
@@ -48,6 +76,8 @@ const Register = ({navigation}) => {
           />
           <Gap height={24} />
           <Input
+            value={form.email}
+            onChangeText={value => setForm("email", value)}
             isPassword={false}
             type="inputtext"
             keyboardType="email-address"
@@ -55,6 +85,8 @@ const Register = ({navigation}) => {
           />
           <Gap height={24} />
           <Input
+            value={form.password}
+            onChangeText={value => setForm("password", value)}
             isPassword={true}
             type="inputtext"
             keyboardType="default"
@@ -62,20 +94,16 @@ const Register = ({navigation}) => {
           />
           <Gap height={24} />
           <Input
+            value={form.pekerjaan}
+            onChangeText={value => setForm("pekerjaan", value)}
             isPassword={false}
             type="inputtext"
             keyboardType="default"
             label="Pekerjaan"
           />
           <Gap height={24} />
-          <Gap height={24} />
           <View>
-            <Button
-              title="Upload Foto"
-              onPress={() => {
-                navigation.navigate("UploadPhoto");
-              }}
-            />
+            <Button title="Upload Foto" onPress={onContinue} />
           </View>
         </View>
       </ScrollView>
