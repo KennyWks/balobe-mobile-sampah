@@ -20,39 +20,20 @@ const Input = ({
     setBorder(colors.border);
   };
 
-  const InputComponent = () => {
-    if (type === "textarea") {
-      return (
-        <TextInput
-          onFocus={onFocusForm}
-          onBlur={onBlurForm}
-          secureTextEntry={isPassword}
-          multiline
-          numberOfLines={6}
-          style={styles.input(border)}
-          keyboardType={keyboardType}
-          value={value}
-          onChangeText={onChangeText}
-        />
-      );
-    } else {
-      return (
-        <TextInput
-          onFocus={onFocusForm}
-          onBlur={onBlurForm}
-          secureTextEntry={isPassword}
-          style={styles.input(border)}
-          keyboardType={keyboardType}
-          value={value}
-          onChangeText={onChangeText}
-        />
-      );
-    }
-  };
   return (
     <View>
       <Text style={styles.label}>{label}</Text>
-      <InputComponent />
+      <TextInput
+        onFocus={onFocusForm}
+        onBlur={onBlurForm}
+        secureTextEntry={isPassword}
+        multiline={type === "textarea" ? true : false}
+        // numberOfLines={6}
+        style={styles.input(border)}
+        keyboardType={keyboardType}
+        value={value}
+        onChangeText={onChangeText}
+      />
     </View>
   );
 };
@@ -65,6 +46,7 @@ const styles = StyleSheet.create({
     borderColor: border,
     borderRadius: 10,
     padding: 12,
+    color: colors.black,
   }),
   label: {
     fontSize: 16,

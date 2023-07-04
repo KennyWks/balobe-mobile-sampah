@@ -10,11 +10,14 @@ import {
   UserProfile3,
   UserProfile4,
 } from "../../assets";
+import {useBottomTabBarHeight} from "@react-navigation/bottom-tabs";
 
 export default function Home({navigation}) {
+  const tabBarHeight = useBottomTabBarHeight();
+
   return (
-    <View style={styles.container}>
-      <ScrollView>
+    <View style={styles.container(tabBarHeight)}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <HomeProfile />
         <PickupDropOff
           name="Pickup"
@@ -96,12 +99,13 @@ export default function Home({navigation}) {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container: tabBarHeight => ({
     flex: 1,
     paddingHorizontal: 20,
     paddingVertical: 15,
     backgroundColor: "white",
-  },
+    paddingBottom: tabBarHeight + 7,
+  }),
   sectionLabel: {
     fontSize: 16,
     fontFamily: fonts.primary[600],

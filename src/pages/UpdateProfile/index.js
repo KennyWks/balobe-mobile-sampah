@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
   profileContent: {
     justifyContent: "center",
     alignItems: "center",
+    paddingTop: 5,
   },
   wrapperProfile: {
     width: 130,

@@ -8,12 +8,15 @@ import {
   UserProfile3,
   UserProfile4,
 } from "../../assets";
+import {useBottomTabBarHeight} from "@react-navigation/bottom-tabs";
 
 export default function Messages({navigation}) {
+  const tabBarHeight = useBottomTabBarHeight();
+
   return (
-    <View style={styles.container}>
+    <View style={styles.container(tabBarHeight)}>
       <View style={styles.content}>
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={styles.title}>Daftar Pengguna</Text>
           <ChatsItem
             name="Budi"
@@ -71,6 +74,90 @@ export default function Messages({navigation}) {
               });
             }}
           />
+          <ChatsItem
+            name="Ani"
+            dec="Su sampe ko?"
+            user={UserProfile4}
+            onPress={() => {
+              navigation.navigate({
+                name: "Chatting",
+                params: {
+                  id: 2,
+                  name: "Ani",
+                },
+              });
+            }}
+          />
+          <ChatsItem
+            name="Ani"
+            dec="Su sampe ko?"
+            user={UserProfile4}
+            onPress={() => {
+              navigation.navigate({
+                name: "Chatting",
+                params: {
+                  id: 2,
+                  name: "Ani",
+                },
+              });
+            }}
+          />
+          <ChatsItem
+            name="Ani"
+            dec="Su sampe ko?"
+            user={UserProfile4}
+            onPress={() => {
+              navigation.navigate({
+                name: "Chatting",
+                params: {
+                  id: 2,
+                  name: "Ani",
+                },
+              });
+            }}
+          />
+          <ChatsItem
+            name="Ani"
+            dec="Su sampe ko?"
+            user={UserProfile4}
+            onPress={() => {
+              navigation.navigate({
+                name: "Chatting",
+                params: {
+                  id: 2,
+                  name: "Ani",
+                },
+              });
+            }}
+          />
+          <ChatsItem
+            name="Ani"
+            dec="Su sampe ko?"
+            user={UserProfile4}
+            onPress={() => {
+              navigation.navigate({
+                name: "Chatting",
+                params: {
+                  id: 2,
+                  name: "Ani",
+                },
+              });
+            }}
+          />
+          <ChatsItem
+            name="Ani"
+            dec="Su sampe ko?"
+            user={UserProfile4}
+            onPress={() => {
+              navigation.navigate({
+                name: "Chatting",
+                params: {
+                  id: 2,
+                  name: "Ani",
+                },
+              });
+            }}
+          />
         </ScrollView>
       </View>
     </View>
@@ -78,10 +165,11 @@ export default function Messages({navigation}) {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container: tabBarHeight => ({
     backgroundColor: colors.white,
     flex: 1,
-  },
+    paddingBottom: tabBarHeight + 7,
+  }),
   content: {
     backgroundColor: colors.white,
     flex: 1,

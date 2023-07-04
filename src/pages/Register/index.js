@@ -17,7 +17,7 @@ const Register = ({navigation}) => {
   ]);
 
   const [form, setForm] = useForm({
-    nama: "",
+    name: "",
     jk: "",
     tglLahir: "",
     noHP: "",
@@ -29,7 +29,6 @@ const Register = ({navigation}) => {
   const onContinue = () => {
     console.log(form);
     setForm("reset");
-
     // navigation.navigate("UploadPhoto");
   };
 

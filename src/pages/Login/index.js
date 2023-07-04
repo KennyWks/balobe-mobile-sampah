@@ -13,7 +13,7 @@ const Login = ({navigation}) => {
   const onSubmit = () => {
     console.log(form);
     setForm("reset");
-    // navigation.replace("MainApp");
+    navigation.replace("MainApp");
   };
 
   return (

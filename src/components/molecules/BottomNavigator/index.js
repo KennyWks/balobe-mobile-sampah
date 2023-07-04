@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text, TouchableOpacity, StyleSheet} from "react-native";
+import {View, StyleSheet} from "react-native";
 import {colors} from "../../../utils";
 import {TabItem} from "../../atoms";
 
@@ -55,8 +55,8 @@ export default function BottomNavigator({state, descriptors, navigation}) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: 80,
+    justifyContent: "space-around",
+    paddingHorizontal: 10,
     paddingVertical: 12,
     backgroundColor: colors.white,
     borderRadius: 15,
