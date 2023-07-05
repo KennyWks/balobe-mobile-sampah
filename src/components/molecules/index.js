@@ -8,6 +8,7 @@ import MenuProfile from "./MenuProfile";
 import Profile from "./Profile";
 import ChatItem from "./ChatItem";
 import InputChat from "./InputChat";
+import Loading from "./Loading";
 
 export {
   Header,
@@ -20,4 +21,5 @@ export {
   ChatItem,
   InputChat,
   Profile,
+  Loading,
 };

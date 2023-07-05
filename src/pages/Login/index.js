@@ -1,58 +1,89 @@
-import React from "react";
+import React, {useState} from "react";
 import {StyleSheet, Text, View, Image} from "react-native";
 import {IMLogoBalobe} from "../../assets";
-import {Input, Link, Button, Gap} from "../../components";
+import {Input, Link, Button, Gap, Loading} from "../../components";
 import {colors, fonts, useForm} from "../../utils";
+import {postData} from "../../helpers/CRUD";
+import {showMessage} from "react-native-flash-message";
 
 const Login = ({navigation}) => {
   const [form, setForm] = useForm({
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
 
-  const onSubmit = () => {
-    console.log(form);
-    setForm("reset");
-    navigation.replace("MainApp");
+  const onSubmit = async () => {
+    setLoading(true);
+    try {
+      const result = await postData("/signin", form);
+      setLoading(false);
+      if (result.data.success) {
+        setForm("reset");
+        showMessage({
+          message: "Berhasil Login",
+          type: "success",
+        });
+
+        setTimeout(() => {
+          navigation.replace("MainApp");
+        }, 500);
+      } else {
+        showMessage({
+          message: "Gagal Login!",
+          type: "danger",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      showMessage({
+        message: "Gagal Login!",
+        type: "danger",
+      });
+    }
   };
 
   return (
-    <View style={styles.page}>
-      <Image source={IMLogoBalobe} />
-      <Text style={styles.title}>Masuk dan mulai menjual sampah anda.</Text>
-      <Input
-        value={form.email}
-        onChangeText={value => setForm("email", value)}
-        isPassword={false}
-        type="inputtext"
-        keyboardType="default"
-        label="Alamat Email"
-      />
-      <Gap height={24} />
-      <Input
-        value={form.password}
-        onChangeText={value => setForm("password", value)}
-        isPassword={true}
-        type="inputtext"
-        keyboardType="default"
-        label="Kata Sandi"
-      />
-      <Gap height={10} />
-      <Link title="Lupa Kata Sandi?" size={12} align="left" />
-      <Gap height={40} />
-      <View>
-        <Button title="Kirim" onPress={onSubmit} />
+    <>
+      <View style={styles.page}>
+        <Image source={IMLogoBalobe} />
+        <Text style={styles.title}>Masuk dan mulai menjual sampah anda.</Text>
+        <Input
+          value={form.email}
+          onChangeText={value => setForm("email", value)}
+          isPassword={false}
+          type="inputtext"
+          keyboardType="default"
+          label="Alamat Email"
+        />
+        <Gap height={24} />
+        <Input
+          value={form.password}
+          onChangeText={value => setForm("password", value)}
+          isPassword={true}
+          type="inputtext"
+          keyboardType="default"
+          label="Kata Sandi"
+        />
+        <Gap height={10} />
+        <Link title="Lupa Kata Sandi?" size={12} align="left" />
+        <Gap height={40} />
+        <View>
+          <Button title="Kirim" onPress={onSubmit} />
+        </View>
+        <Gap height={30} />
+        <Link
+          title="Buat akun baru"
+          size={16}
+          align="center"
+          onPress={() => {
+            navigation.navigate("Register");
+          }}
+        />
       </View>
-      <Gap height={30} />
-      <Link
-        title="Buat akun baru"
-        size={16}
-        align="center"
-        onPress={() => {
-          navigation.navigate("Register");
-        }}
-      />
-    </View>
+      {loading && <Loading />}
+    </>
   );
 };
 
