@@ -1,11 +1,33 @@
 import {Image, SafeAreaView, StyleSheet, Text, View} from "react-native";
-import React from "react";
-import {IMGetStarted} from "../../assets";
+import React, {useState, useEffect} from "react";
 import {colors, fonts} from "../../utils";
 import {ScrollView} from "react-native-gesture-handler";
 import {Header} from "../../components";
+import {url, getData} from "../../helpers/CRUD";
 
-export default function ReadNews({navigation}) {
+export default function ReadNews({navigation, route}) {
+  const {id} = route.params;
+
+  const [news, setNews] = useState([]);
+
+  useEffect(() => {
+    readNews();
+  }, []);
+
+  const readNews = async () => {
+    try {
+      const result = await getData("/news/" + id);
+      if (result.data) {
+        setNews(result.data.data);
+      }
+    } catch (e) {
+      showMessage({
+        message: "Data gagal di ambil",
+        type: "danger",
+      });
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Header title="Berita" navigation={navigation} />
@@ -13,52 +35,17 @@ export default function ReadNews({navigation}) {
         <SafeAreaView>
           <ScrollView>
             <View style={styles.wrapperTitle}>
-              <Text style={styles.title}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              </Text>
+              <Text style={styles.title}>{news.judul}</Text>
             </View>
             <View style={styles.wrapperNews}>
-              <Image source={IMGetStarted} style={styles.images} />
+              <Image
+                source={{
+                  uri: url + news.foto,
+                }}
+                style={styles.image}
+              />
               <View style={styles.wrapperDesc}>
-                <Text style={styles.desc}>
-                  Harum ipsum praesentium quisquam? Quia eius a quas numquam est
-                  eos dolorum nesciunt consectetur voluptates quos voluptatum,
-                  veritatis in ab eaque error!adNews. Harum ipsum praesentium
-                  quisquam? Quia eius a quas numquam est eos dolorum nesciunt
-                  consectetur voluptates quos voluptatum, veritatis in ab eaque
-                  error!adNews Harum ipsum praesentium quisquam? Quia eius a
-                  quas numquam est eos dolorum nesciunt consectetur voluptates
-                  quos voluptatum, veritatis in ab eaque error!adNews Harum
-                  ipsum praesentium quisquam? Quia eius a quas numquam est eos
-                  dolorum nesciunt consectetur voluptates quos voluptatum,
-                  veritatis in ab eaque error!adNews
-                </Text>
-                <Text style={styles.desc}>
-                  Harum ipsum praesentium quisquam? Quia eius a quas numquam est
-                  eos dolorum nesciunt consectetur voluptates quos voluptatum,
-                  veritatis in ab eaque error!adNews. Harum ipsum praesentium
-                  quisquam? Quia eius a quas numquam est eos dolorum nesciunt
-                  consectetur voluptates quos voluptatum, veritatis in ab eaque
-                  error!adNews Harum ipsum praesentium quisquam? Quia eius a
-                  quas numquam est eos dolorum nesciunt consectetur voluptates
-                  quos voluptatum, veritatis in ab eaque error!adNews Harum
-                  ipsum praesentium quisquam? Quia eius a quas numquam est eos
-                  dolorum nesciunt consectetur voluptates quos voluptatum,
-                  veritatis in ab eaque error!adNews
-                </Text>
-                <Text style={styles.desc}>
-                  Harum ipsum praesentium quisquam? Quia eius a quas numquam est
-                  eos dolorum nesciunt consectetur voluptates quos voluptatum,
-                  veritatis in ab eaque error!adNews. Harum ipsum praesentium
-                  quisquam? Quia eius a quas numquam est eos dolorum nesciunt
-                  consectetur voluptates quos voluptatum, veritatis in ab eaque
-                  error!adNews Harum ipsum praesentium quisquam? Quia eius a
-                  quas numquam est eos dolorum nesciunt consectetur voluptates
-                  quos voluptatum, veritatis in ab eaque error!adNews Harum
-                  ipsum praesentium quisquam? Quia eius a quas numquam est eos
-                  dolorum nesciunt consectetur voluptates quos voluptatum,
-                  veritatis in ab eaque error!adNews
-                </Text>
+                <Text style={styles.desc}>{news.isi}</Text>
               </View>
             </View>
           </ScrollView>
@@ -93,7 +80,9 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
   },
-  images: {
+  image: {
+    width: 240,
+    height: 240,
     maxHeight: 240,
     maxWidth: 240,
     paddingTop: 20,

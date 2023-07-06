@@ -1,6 +1,7 @@
 import {StyleSheet, Text, View, Image, TouchableOpacity} from "react-native";
 import React from "react";
 import {colors, fonts} from "../../../utils";
+import {url} from "../../../helpers/CRUD";
 
 export default function NewsItem({title, date, image, onPress}) {
   return (
@@ -10,7 +11,12 @@ export default function NewsItem({title, date, image, onPress}) {
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.date}>{date}</Text>
         </View>
-        <Image source={image} style={styles.image} />
+        <Image
+          source={{
+            uri: url + image,
+          }}
+          style={styles.image}
+        />
       </View>
     </TouchableOpacity>
   );

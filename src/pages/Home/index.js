@@ -1,23 +1,51 @@
-import {StyleSheet, Text, View, ScrollView} from "react-native";
-import React from "react";
+import {StyleSheet, Text, View, ScrollView, RefreshControl} from "react-native";
+import React, {useEffect, useState, useCallback} from "react";
 import HomeProfile from "../../components/molecules/HomeProfile";
 import NewsItem from "../../components/molecules/NewsItem";
 import {colors, fonts} from "../../utils";
 import PickupDropOff from "../../components/molecules/PickupDropOff";
-import {
-  UserProfile1,
-  UserProfile2,
-  UserProfile3,
-  UserProfile4,
-} from "../../assets";
+import {getData} from "../../helpers/CRUD";
 import {useBottomTabBarHeight} from "@react-navigation/bottom-tabs";
 
 export default function Home({navigation}) {
   const tabBarHeight = useBottomTabBarHeight();
+  const [news, setNews] = useState([]);
+  const [refreshingEvents, setRefreshingEvents] = useState(false);
+
+  useEffect(() => {
+    getNews();
+  }, []);
+
+  const onRefreshEvents = useCallback(() => {
+    setRefreshingEvents(true);
+    getNews();
+    setRefreshingEvents(false);
+  }, []);
+
+  const getNews = async () => {
+    try {
+      const result = await getData("/news");
+      if (result.data) {
+        setNews(result.data.data);
+      }
+    } catch (e) {
+      showMessage({
+        message: "Data gagal di ambil",
+        type: "danger",
+      });
+    }
+  };
 
   return (
     <View style={styles.container(tabBarHeight)}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshingEvents}
+            onRefresh={onRefreshEvents}
+          />
+        }>
         <HomeProfile />
         <PickupDropOff
           name="Pickup"
@@ -34,65 +62,22 @@ export default function Home({navigation}) {
           onPress={() => {}}
         />
         <Text style={styles.sectionLabel}>Berita</Text>
-        <NewsItem
-          title="Lorem ipsum dolor sit amet 
-          iste perspiciatis veritatis qui!"
-          date="1-01-2021 10:09"
-          image={UserProfile1}
-          onPress={() => {
-            navigation.navigate({
-              name: "ReadNews",
-              params: {
-                id: 1,
-                image: "",
-              },
-            });
-          }}
-        />
-        <NewsItem
-          title="Consectetur adipisicing elit. Explicabo
-          iste perspiciatis veritatis qui!"
-          date="8-08-2021 08:09"
-          image={UserProfile2}
-          onPress={() => {
-            navigation.navigate({
-              name: "ReadNews",
-              params: {
-                id: 2,
-                image: "",
-              },
-            });
-          }}
-        />
-        <NewsItem
-          title="Explicabo iste perspiciatis veritatis qui!"
-          date="Today"
-          image={UserProfile3}
-          onPress={() => {
-            navigation.navigate({
-              name: "ReadNews",
-              params: {
-                id: 3,
-                image: "",
-              },
-            });
-          }}
-        />
-        <NewsItem
-          title="Adipisicing elit. Explicabo
-          iste perspiciatis veritatis qui!"
-          date="17-01-2021 16:09"
-          image={UserProfile4}
-          onPress={() => {
-            navigation.navigate({
-              name: "ReadNews",
-              params: {
-                id: 4,
-                image: "",
-              },
-            });
-          }}
-        />
+        {news.map((v, i) => (
+          <NewsItem
+            key={v.news_id}
+            title={v.judul}
+            date={v.tanggal}
+            image={v.foto}
+            onPress={() => {
+              navigation.navigate({
+                name: "ReadNews",
+                params: {
+                  id: v.news_id,
+                },
+              });
+            }}
+          />
+        ))}
       </ScrollView>
     </View>
   );

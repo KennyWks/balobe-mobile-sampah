@@ -1,7 +1,8 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const host = "http://192.168.72.1:8089/api";
+export const url = "http://192.168.1.19:8089";
+const host = url + "/api";
 let token = {};
 
 export const postData = async (path, data = {}) => {
