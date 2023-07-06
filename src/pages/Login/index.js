@@ -1,10 +1,12 @@
-import React, {useState} from "react";
-import {StyleSheet, Text, View, Image} from "react-native";
+import React, {useEffect, useState} from "react";
+import {StyleSheet, Text, View, Image, Alert} from "react-native";
 import {IMLogoBalobe} from "../../assets";
 import {Input, Link, Button, Gap, Loading} from "../../components";
 import {colors, fonts, useForm} from "../../utils";
 import {postData} from "../../helpers/CRUD";
 import {showMessage} from "react-native-flash-message";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import jwtDecode from "jwt-decode";
 
 const Login = ({navigation}) => {
   const [form, setForm] = useForm({
@@ -12,6 +14,31 @@ const Login = ({navigation}) => {
     password: "",
   });
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const storeData = async value => {
+    try {
+      await AsyncStorage.setItem("token", value);
+    } catch (e) {
+      Alert.alert("Tidak dapat memproses sesi login ini!");
+    }
+  };
+
+  const getData = async () => {
+    try {
+      const token = await AsyncStorage.getItem("token");
+      const decodeToken = jwtDecode(token);
+      const dateNow = new Date();
+      if (value !== null && decodeToken.exp < dateNow.getTime()) {
+        navigation.replace("MainApp");
+      }
+    } catch (e) {
+      Alert.alert("Sesi login anda sudah habis. Silahkan login ulang!");
+    }
+  };
 
   const onSubmit = async () => {
     setLoading(true);
@@ -24,18 +51,29 @@ const Login = ({navigation}) => {
           message: "Berhasil Login",
           type: "success",
         });
-
+        storeData(result.data.token);
+        console.log(result.data.token);
         setTimeout(() => {
           navigation.replace("MainApp");
         }, 500);
       } else {
-        showMessage({
-          message: "Gagal Login!",
-          type: "danger",
-        });
+        if (result.data.error.email) {
+          showMessage({
+            message: result.data.error.email,
+            type: "danger",
+          });
+        }
+
+        if (result.data.error.password) {
+          setTimeout(() => {
+            showMessage({
+              message: result.data.error.password,
+              type: "danger",
+            });
+          }, 900);
+        }
       }
     } catch (error) {
-      console.log(error);
       setLoading(false);
       showMessage({
         message: "Gagal Login!",

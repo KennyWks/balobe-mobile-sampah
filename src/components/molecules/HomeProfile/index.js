@@ -1,14 +1,30 @@
 import {StyleSheet, Text, View, Image} from "react-native";
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {ILPlant} from "../../../assets/images";
 import {colors, fonts} from "../../../utils";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import jwtDecode from "jwt-decode";
 
 export default function HomeProfile() {
+  const [data, setData] = useState(false);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const token = await AsyncStorage.getItem("token");
+      const decodeToken = jwtDecode(token);
+      setData(decodeToken);
+    } catch (e) {}
+  };
+
   return (
     <View style={styles.container}>
       <Image source={ILPlant} style={styles.avatar} />
       <View style={styles.wrapper}>
-        <Text style={styles.name}>Pagi, Kenny</Text>
+        <Text style={styles.name}>Hallo..! {data.name}</Text>
         <Text style={styles.info}>Ayo Daur Ulang Sampah...</Text>
       </View>
     </View>
