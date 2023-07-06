@@ -27,7 +27,6 @@ const Register = ({navigation}) => {
   });
 
   const onContinue = () => {
-    console.log(form);
     setForm("reset");
     // navigation.navigate("UploadPhoto");
   };

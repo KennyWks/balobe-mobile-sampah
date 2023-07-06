@@ -30,7 +30,6 @@ export default function Account({navigation}) {
     setLoading(true);
     try {
       const token = await AsyncStorage.getItem("token");
-      console.log(token);
       const result = await postData("/signout");
       setLoading(false);
       if (result.data.success) {
@@ -49,7 +48,6 @@ export default function Account({navigation}) {
         });
       }
     } catch (error) {
-      console.log(error.response);
       setLoading(false);
       showMessage({
         message: "Gagal Logout!",

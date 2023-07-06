@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {StyleSheet, Text, View, Image, Alert} from "react-native";
+import {StyleSheet, Text, View, Image} from "react-native";
 import {IMLogoBalobe} from "../../assets";
 import {Input, Link, Button, Gap, Loading} from "../../components";
 import {colors, fonts, useForm} from "../../utils";
@@ -23,7 +23,10 @@ const Login = ({navigation}) => {
     try {
       await AsyncStorage.setItem("token", value);
     } catch (e) {
-      Alert.alert("Tidak dapat memproses sesi login ini!");
+      showMessage({
+        message: "Tidak dapat memproses sesi login ini!",
+        type: "danger",
+      });
     }
   };
 
@@ -36,7 +39,10 @@ const Login = ({navigation}) => {
         navigation.replace("MainApp");
       }
     } catch (e) {
-      Alert.alert("Sesi login anda sudah habis. Silahkan login ulang!");
+      showMessage({
+        message: "Sesi login anda sudah habis. Silahkan login ulang!",
+        type: "danger",
+      });
     }
   };
 
@@ -52,7 +58,6 @@ const Login = ({navigation}) => {
           type: "success",
         });
         storeData(result.data.token);
-        console.log(result.data.token);
         setTimeout(() => {
           navigation.replace("MainApp");
         }, 500);
