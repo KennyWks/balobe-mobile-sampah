@@ -21,7 +21,7 @@ export const getLocalData = async key => {
   } catch (e) {}
 };
 
-export const removeData = async key => {
+export const removeLocalData = async key => {
   try {
     await AsyncStorage.removeItem(key);
   } catch (e) {}
@@ -29,7 +29,7 @@ export const removeData = async key => {
 
 export const logOut = async (navigation, page, message) => {
   try {
-    await removeData("token");
+    await removeLocalData("token");
     if (page !== "Login") {
       navigation.replace("Login");
     }
