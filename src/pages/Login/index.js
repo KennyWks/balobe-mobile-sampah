@@ -2,11 +2,16 @@ import React, {useEffect, useState} from "react";
 import {StyleSheet, Text, View, Image} from "react-native";
 import {IMLogoBalobe} from "../../assets";
 import {Input, Link, Button, Gap, Loading} from "../../components";
-import {colors, fonts, useForm} from "../../utils";
-import {postData} from "../../helpers/CRUD";
+import {
+  colors,
+  fonts,
+  useForm,
+  storeLocalData,
+  getLocalData,
+  logOut,
+} from "../../utils";
+import {postApiData} from "../../helpers/CRUD";
 import {showMessage} from "react-native-flash-message";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import jwtDecode from "jwt-decode";
 
 const Login = ({navigation}) => {
   const [form, setForm] = useForm({
@@ -16,40 +21,40 @@ const Login = ({navigation}) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    getData();
+    getToken();
   }, []);
 
-  const storeData = async value => {
-    try {
-      await AsyncStorage.setItem("token", value);
-    } catch (e) {
-      showMessage({
-        message: "Tidak dapat memproses sesi login ini!",
-        type: "danger",
-      });
-    }
-  };
-
-  const getData = async () => {
-    try {
-      const token = await AsyncStorage.getItem("token");
-      const decodeToken = jwtDecode(token);
-      const dateNow = new Date();
-      if (value !== null && decodeToken.exp < dateNow.getTime()) {
-        navigation.replace("MainApp");
-      }
-    } catch (e) {
-      showMessage({
-        message: "Sesi login anda sudah habis. Silahkan login ulang!",
-        type: "danger",
-      });
-    }
+  const getToken = () => {
+    getLocalData("token").then(
+      res => {
+        if (res !== null) {
+          const {exp} = res;
+          const dateNow = new Date();
+          if (exp < dateNow.getTime()) {
+            navigation.replace("MainApp");
+          } else {
+            logOut(
+              navigation,
+              "Login",
+              "Sesi login anda berakhir. Silahkan login ulang!",
+            );
+          }
+        }
+      },
+      err => {
+        logOut(
+          navigation,
+          "Login",
+          "Sesi login anda berakhir. Silahkan login ulang!",
+        );
+      },
+    );
   };
 
   const onSubmit = async () => {
     setLoading(true);
     try {
-      const result = await postData("/signin", form);
+      const result = await postApiData("/signin", form);
       setLoading(false);
       if (result.data.success) {
         setForm("reset");
@@ -57,7 +62,7 @@ const Login = ({navigation}) => {
           message: "Berhasil Login",
           type: "success",
         });
-        storeData(result.data.token);
+        storeLocalData("token", result.data.token);
         setTimeout(() => {
           navigation.replace("MainApp");
         }, 500);

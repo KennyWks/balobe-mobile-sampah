@@ -1,12 +1,10 @@
 import {ScrollView, StyleSheet, Text, View, Image} from "react-native";
 import React, {useState, useEffect} from "react";
 import {Loading, MenuProfile, Profile} from "../../components";
-import {colors} from "../../utils";
+import {colors, getLocalData, logOut} from "../../utils";
 import {useBottomTabBarHeight} from "@react-navigation/bottom-tabs";
-import {postData} from "../../helpers/CRUD";
+import {postApiData} from "../../helpers/CRUD";
 import {showMessage} from "react-native-flash-message";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import jwtDecode from "jwt-decode";
 
 export default function Account({navigation}) {
   const point = 0;
@@ -15,32 +13,43 @@ export default function Account({navigation}) {
   const [data, setData] = useState(false);
 
   useEffect(() => {
-    getData();
+    getToken();
   }, []);
 
-  const getData = async () => {
-    try {
-      const token = await AsyncStorage.getItem("token");
-      const decodeToken = jwtDecode(token);
-      setData(decodeToken);
-    } catch (e) {}
+  const getToken = () => {
+    getLocalData("token").then(
+      res => {
+        if (res !== null) {
+          const {exp} = res;
+          const dateNow = new Date();
+          if (exp < dateNow.getTime()) {
+            setData(res);
+          } else {
+            logOut(
+              navigation,
+              "Account",
+              "Sesi login anda berakhir. Silahkan login ulang!",
+            );
+          }
+        }
+      },
+      err => {
+        logOut(
+          navigation,
+          "Account",
+          "Sesi login anda berakhir. Silahkan login ulang!",
+        );
+      },
+    );
   };
 
   const onSubmit = async () => {
     setLoading(true);
     try {
-      const token = await AsyncStorage.getItem("token");
-      const result = await postData("/signout");
+      const result = await postApiData("/signout");
       setLoading(false);
       if (result.data.success) {
-        await AsyncStorage.removeItem("token");
-        setTimeout(() => {
-          navigation.replace("Login");
-        }, 500);
-        showMessage({
-          message: result.data.message,
-          type: "success",
-        });
+        logOut("token", "Account", result.data.message);
       } else {
         showMessage({
           message: result.data.message,

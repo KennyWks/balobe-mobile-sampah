@@ -2,9 +2,9 @@ import {StyleSheet, Text, View, ScrollView, RefreshControl} from "react-native";
 import React, {useEffect, useState, useCallback} from "react";
 import HomeProfile from "../../components/molecules/HomeProfile";
 import NewsItem from "../../components/molecules/NewsItem";
-import {colors, fonts} from "../../utils";
+import {colors, fonts, getLocalData, logOut} from "../../utils";
 import PickupDropOff from "../../components/molecules/PickupDropOff";
-import {getData} from "../../helpers/CRUD";
+import {getApiData} from "../../helpers/CRUD";
 import {useBottomTabBarHeight} from "@react-navigation/bottom-tabs";
 
 export default function Home({navigation}) {
@@ -14,7 +14,33 @@ export default function Home({navigation}) {
 
   useEffect(() => {
     getNews();
+    getToken();
   }, []);
+
+  const getToken = () => {
+    getLocalData("token").then(
+      res => {
+        if (res !== null) {
+          const {exp} = res;
+          const dateNow = new Date();
+          if (exp > dateNow.getTime()) {
+            logOut(
+              navigation,
+              "Home",
+              "Sesi login anda berakhir. Silahkan login ulang!",
+            );
+          }
+        }
+      },
+      err => {
+        logOut(
+          navigation,
+          "Home",
+          "Sesi login anda berakhir. Silahkan login ulang!",
+        );
+      },
+    );
+  };
 
   const onRefreshEvents = useCallback(() => {
     setRefreshingEvents(true);
@@ -24,7 +50,7 @@ export default function Home({navigation}) {
 
   const getNews = async () => {
     try {
-      const result = await getData("/news");
+      const result = await getApiData("/news");
       if (result.data) {
         setNews(result.data.data);
       }

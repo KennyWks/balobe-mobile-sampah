@@ -1,11 +1,11 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const url = "http://192.168.1.19:8089";
+export const url = "http://192.168.178.60:8089";
 const host = url + "/api";
 let token = {};
 
-export const postData = async (path, data = {}) => {
+export const postApiData = async (path, data = {}) => {
   const accessToken = await AsyncStorage.getItem("token");
   if (accessToken) {
     token = {
@@ -25,7 +25,7 @@ export const postData = async (path, data = {}) => {
   }
 };
 
-export const getData = async path => {
+export const getApiData = async path => {
   try {
     const response = await axios.get(host + path);
     return response;
