@@ -11,6 +11,14 @@ const Button = ({title, type, icon, disable, onPress}) => {
   if (type === "btn-icon-send") {
     return <BtnIconSend icon={icon} disable={disable} onPress={onPress} />;
   }
+
+  if (disable) {
+    return (
+      <View style={styles.disableBg}>
+        <Text style={styles.disableText}>{title}</Text>
+      </View>
+    );
+  }
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container(type)}>
@@ -31,6 +39,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: 10,
   }),
+  disableBg: {
+    borderRadius: 10,
+    paddingVertical: 10,
+    backgroundColor: colors.button.disable.background,
+  },
+  disableText: {
+    fontSize: 16,
+    fontWeight: "600",
+    textAlign: "center",
+    color: colors.button.disable.text,
+  },
   text: type => ({
     fontSize: 16,
     fontWeight: "600",
@@ -41,4 +60,5 @@ const styles = StyleSheet.create({
         : colors.button.primary.text,
     fontFamily: fonts.primary[600],
   }),
+  disableBg: {},
 });

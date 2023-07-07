@@ -1,10 +1,17 @@
-import {Image, StyleSheet, Text, View} from "react-native";
-import React from "react";
+import {Image, StyleSheet, Text, View, TouchableOpacity} from "react-native";
+import React, {useState} from "react";
 import {Button, Gap, Header, Link} from "../../components";
-import {ILPhotoProfileIsNull, IconPlus} from "../../assets";
+import {ILPhotoProfileIsNull, IconPlus, IconRemove} from "../../assets";
 import {colors, fonts} from "../../utils";
+// import {launchImageLibrary} from "react-native-image-picker";
 
 export default function UploadPhoto({navigation}) {
+  const [hasPhoto, setHasPhoto] = useState(false);
+  const getImage = () => {
+    // launchImageLibrary(response => {
+    //   console.log(response);
+    // });
+  };
   return (
     <View style={styles.page}>
       <Header
@@ -14,15 +21,17 @@ export default function UploadPhoto({navigation}) {
       />
       <View style={styles.content}>
         <View style={styles.profile}>
-          <View style={styles.avatarWrapper}>
+          <TouchableOpacity style={styles.avatarWrapper} onPress={getImage}>
             <Image style={styles.avatar} source={ILPhotoProfileIsNull} />
-            <IconPlus style={styles.addPhoto} />
-          </View>
+            {hasPhoto && <IconRemove style={styles.addPhoto} />}
+            {!hasPhoto && <IconPlus style={styles.addPhoto} />}
+          </TouchableOpacity>
           <Text style={styles.name}>Nama User</Text>
           <Text style={styles.proffesion}>Pekerjaan USer</Text>
         </View>
         <View>
           <Button
+            disable={!hasPhoto}
             title="Unggah & Lanjutkan"
             onPress={() => {
               navigation.replace("MainApp");
@@ -56,7 +65,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
   },
-  avatar: {height: 110, width: 110},
+  avatar: {height: 110, width: 110, borderRadius: 110 / 2},
   avatarWrapper: {
     height: 130,
     width: 130,
