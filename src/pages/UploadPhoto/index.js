@@ -3,14 +3,25 @@ import React, {useState} from "react";
 import {Button, Gap, Header, Link} from "../../components";
 import {ILPhotoProfileIsNull, IconPlus, IconRemove} from "../../assets";
 import {colors, fonts} from "../../utils";
-// import {launchImageLibrary} from "react-native-image-picker";
+import {launchImageLibrary} from "react-native-image-picker";
+import {showMessage} from "react-native-flash-message";
 
 export default function UploadPhoto({navigation}) {
   const [hasPhoto, setHasPhoto] = useState(false);
+  const [photo, setPhoto] = useState(ILPhotoProfileIsNull);
   const getImage = () => {
-    // launchImageLibrary(response => {
-    //   console.log(response);
-    // });
+    launchImageLibrary({}, response => {
+      if (response.didCancel || response.errorCode) {
+        showMessage({
+          message: "Opps... Terjadi masalah saat pilih file!",
+          type: "danger",
+        });
+      } else {
+        const source = {uri: response.assets[0].uri};
+        setPhoto(source);
+        setHasPhoto(true);
+      }
+    });
   };
   return (
     <View style={styles.page}>
@@ -22,7 +33,7 @@ export default function UploadPhoto({navigation}) {
       <View style={styles.content}>
         <View style={styles.profile}>
           <TouchableOpacity style={styles.avatarWrapper} onPress={getImage}>
-            <Image style={styles.avatar} source={ILPhotoProfileIsNull} />
+            <Image style={styles.avatar} source={photo} />
             {hasPhoto && <IconRemove style={styles.addPhoto} />}
             {!hasPhoto && <IconPlus style={styles.addPhoto} />}
           </TouchableOpacity>

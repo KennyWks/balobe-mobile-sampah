@@ -1,7 +1,7 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const url = "http://192.168.1.21:8089";
+export const url = "http://192.168.114.60:8089";
 const host = url + "/api";
 let token = {};
 
