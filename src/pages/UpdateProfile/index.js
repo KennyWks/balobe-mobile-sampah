@@ -9,7 +9,7 @@ import {
   DatePicker,
   Profile,
 } from "../../components";
-import {colors} from "../../utils";
+import {colors, useForm} from "../../utils";
 import {IconRemove} from "../../assets";
 
 export default function UpdateProfile({navigation}) {
@@ -17,6 +17,20 @@ export default function UpdateProfile({navigation}) {
     {label: "Laki-laki", value: "Laki-laki"},
     {label: "Perempuan", value: "Perempuan"},
   ]);
+
+  const [form, setForm] = useForm({
+    name: "",
+    jk: "",
+    tglLahir: "",
+    noHP: "",
+    email: "",
+    password: "",
+    pekerjaan: "",
+  });
+
+  const uploadPhoto = () => {
+    navigation.navigate("UploadPhoto");
+  };
 
   return (
     <View style={styles.page}>
@@ -30,6 +44,7 @@ export default function UpdateProfile({navigation}) {
         </View>
         <View style={styles.formContent}>
           <Input
+            onChangeText={value => setForm("name", value)}
             isPassword={false}
             type="inputtext"
             keyboardType="default"
@@ -39,12 +54,20 @@ export default function UpdateProfile({navigation}) {
           <Dropdown
             label={"Jenis Kelamin"}
             data={gender}
-            onValueChange={value => {}}
+            onValueChange={value => {
+              setForm("jk", value);
+            }}
           />
           <Gap height={22} />
-          <DatePicker label="Tanggal Lahir" onChoose={value => {}} />
+          <DatePicker
+            label="Tanggal Lahir"
+            onChoose={value => {
+              setForm("tglLahir", value);
+            }}
+          />
           <Gap height={40} />
           <Input
+            onChangeText={value => setForm("noHP", value)}
             isPassword={false}
             type="inputtext"
             keyboardType="phone-pad"
@@ -52,6 +75,7 @@ export default function UpdateProfile({navigation}) {
           />
           <Gap height={24} />
           <Input
+            onChangeText={value => setForm("email", value)}
             isPassword={false}
             type="inputtext"
             keyboardType="email-address"
@@ -59,6 +83,7 @@ export default function UpdateProfile({navigation}) {
           />
           <Gap height={24} />
           <Input
+            onChangeText={value => setForm("password", value)}
             isPassword={true}
             type="inputtext"
             keyboardType="default"
@@ -66,6 +91,7 @@ export default function UpdateProfile({navigation}) {
           />
           <Gap height={24} />
           <Input
+            onChangeText={value => setForm("pekerjaan", value)}
             isPassword={false}
             type="inputtext"
             keyboardType="default"
@@ -80,12 +106,7 @@ export default function UpdateProfile({navigation}) {
           />
           <Gap height={24} />
           <View>
-            <Button
-              title="Upload Foto"
-              onPress={() => {
-                navigation.navigate("UploadPhoto");
-              }}
-            />
+            <Button title="Upload Foto" onPress={uploadPhoto} />
           </View>
         </View>
       </ScrollView>

@@ -13,11 +13,14 @@ export const storeLocalData = async (key, value) => {
   }
 };
 
-export const getLocalData = async key => {
+export const getLocalData = async (key, decode = true) => {
   try {
     const token = await AsyncStorage.getItem(key);
-    const decodeToken = jwtDecode(token);
-    return decodeToken;
+    if (decode) {
+      const decodeToken = jwtDecode(token);
+      return decodeToken;
+    }
+    return token;
   } catch (e) {}
 };
 

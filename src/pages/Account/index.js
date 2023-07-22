@@ -43,10 +43,10 @@ export default function Account({navigation}) {
     );
   };
 
-  const onSubmit = async () => {
+  const onLogout = async () => {
     setLoading(true);
     try {
-      const result = await postApiData("/signout");
+      const result = await postApiData("/user/signout");
       setLoading(false);
       if (result.data.success) {
         logOut("token", "Account", result.data.message);
@@ -57,6 +57,7 @@ export default function Account({navigation}) {
         });
       }
     } catch (error) {
+      console.log(error.response);
       setLoading(false);
       showMessage({
         message: "Gagal Logout!",
@@ -111,7 +112,7 @@ export default function Account({navigation}) {
             icon="logout"
             name="Keluar"
             appVersion="logout"
-            onPress={onSubmit}
+            onPress={onLogout}
           />
         </ScrollView>
       </View>
@@ -124,7 +125,7 @@ const styles = StyleSheet.create({
   container: tabBarHeight => ({
     backgroundColor: colors.white,
     flex: 1,
-    paddingBottom: tabBarHeight + 7,
+    paddingBottom: tabBarHeight + 15,
   }),
   wrapperProfile: {
     backgroundColor: colors.greenLight,

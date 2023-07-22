@@ -1,24 +1,17 @@
 import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import {getLocalData} from "../utils";
 
-export const url = "http://192.168.114.60:8089";
+export const url = "http://192.168.54.60:8089";
 const host = url + "/api";
-let token = {};
 
 export const postApiData = async (path, data = {}) => {
-  const accessToken = await AsyncStorage.getItem("token");
-  if (accessToken) {
-    token = {
-      headers: {
-        authorization: `Bearer ${accessToken}`,
-      },
-    };
-  } else {
-    token = {};
-  }
-
   try {
-    const response = await axios.post(host + path, data, token);
+    const token = await getLocalData("token", false);
+    const response = await axios.post(host + path, data, {
+      headers: {
+        Authorization: "Bearer " + token ? token : "",
+      },
+    });
     return response;
   } catch (error) {
     throw error;
