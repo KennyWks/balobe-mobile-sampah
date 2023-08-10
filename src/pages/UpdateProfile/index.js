@@ -1,5 +1,5 @@
 import {StyleSheet, View, ScrollView} from "react-native";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {
   Header,
   Input,
@@ -9,7 +9,13 @@ import {
   DatePicker,
   Profile,
 } from "../../components";
-import {colors, useForm} from "../../utils";
+import {
+  colors,
+  getLocalData,
+  removeLocalData,
+  storeLocalData,
+  useForm,
+} from "../../utils";
 import {IconRemove} from "../../assets";
 
 export default function UpdateProfile({navigation}) {
@@ -17,8 +23,41 @@ export default function UpdateProfile({navigation}) {
     {label: "Laki-laki", value: "Laki-laki"},
     {label: "Perempuan", value: "Perempuan"},
   ]);
+  const [data, setData] = useState(false);
+
+  useEffect(() => {
+    getToken();
+  }, []);
+
+  const getToken = () => {
+    getLocalData("token").then(
+      res => {
+        if (res !== null) {
+          const {exp} = res;
+          const dateNow = new Date();
+          if (exp < dateNow.getTime()) {
+            setData(res);
+          } else {
+            logOut(
+              navigation,
+              "Account",
+              "Sesi login anda berakhir. Silahkan login ulang!",
+            );
+          }
+        }
+      },
+      err => {
+        logOut(
+          navigation,
+          "Account",
+          "Sesi login anda berakhir. Silahkan login ulang!",
+        );
+      },
+    );
+  };
 
   const [form, setForm] = useForm({
+    user_id: data.user_id,
     name: "",
     jk: "",
     tglLahir: "",
@@ -28,8 +67,33 @@ export default function UpdateProfile({navigation}) {
     pekerjaan: "",
   });
 
-  const uploadPhoto = () => {
-    navigation.navigate("UploadPhoto");
+  const uploadPhoto = async () => {
+    setLoading(true);
+    try {
+      const result = await postApiData("/user/createorupdate");
+      await postApiData("/user/signout");
+      const user = await postApiData("/sigin", {
+        email: data.email,
+        password: data.password,
+      });
+      setLoading(false);
+      if (result.data.success) {
+        removeLocalData("token");
+        storeLocalData("token", user.data.token);
+        navigation.navigate("UploadPhoto");
+      } else {
+        showMessage({
+          message: result.data.message,
+          type: "danger",
+        });
+      }
+    } catch (error) {
+      setLoading(false);
+      showMessage({
+        message: "Gagal diproses!",
+        type: "danger",
+      });
+    }
   };
 
   return (

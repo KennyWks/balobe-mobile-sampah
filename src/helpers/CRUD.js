@@ -1,22 +1,31 @@
 import axios from "axios";
 import {getLocalData} from "../utils";
 
-export const url = "http://192.168.54.60:8089";
-const host = url + "/api";
+export const url = "http://192.168.1.22:8000";
+const route = url + "/api";
 
-export const postApiData = async (path, data = {}) => {
+export const postApiDataWithoutHeader = async (path, data = {}) => {
   try {
-    const token = await getLocalData("token", false);
-    const response = await axios.post(host + path, data, {
-      headers: {
-        Authorization: "Bearer " + token ? token : "",
-      },
-    });
+    const response = await axios.post(route + path, data);
     return response;
   } catch (error) {
     throw error;
   }
 };
+
+export const postApiData = async (path, data = {}) => {
+  try {
+    const token = await getLocalData("token", false);
+    const headers = {
+      headers: {Authorization: "Bearer " + token.replace(/\"/g, "")},
+    };
+    const response = await axios.post(route + path, data, headers);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 
 export const getApiData = async path => {
   try {

@@ -39,7 +39,7 @@ export const logOut = async (navigation, page, message) => {
     setTimeout(() => {
       showMessage({
         message: message,
-        type: "danger",
+        type: "success",
       });
     }, 500);
   } catch (e) {}

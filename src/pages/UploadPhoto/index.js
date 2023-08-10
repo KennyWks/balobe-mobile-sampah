@@ -10,18 +10,21 @@ export default function UploadPhoto({navigation}) {
   const [hasPhoto, setHasPhoto] = useState(false);
   const [photo, setPhoto] = useState(ILPhotoProfileIsNull);
   const getImage = () => {
-    launchImageLibrary({}, response => {
-      if (response.didCancel || response.errorCode) {
-        showMessage({
-          message: "Opps... Terjadi masalah saat pilih file!",
-          type: "danger",
-        });
-      } else {
-        const source = {uri: response.assets[0].uri};
-        setPhoto(source);
-        setHasPhoto(true);
-      }
-    });
+    launchImageLibrary(
+      {quality: 0.5, maxHeight: 200, maxWidth: 200},
+      response => {
+        if (response.didCancel || response.errorCode) {
+          showMessage({
+            message: "Opps... Terjadi masalah saat pilih file!",
+            type: "danger",
+          });
+        } else {
+          const source = {uri: response.assets[0].uri};
+          setPhoto(source);
+          setHasPhoto(true);
+        }
+      },
+    );
   };
   return (
     <View style={styles.page}>

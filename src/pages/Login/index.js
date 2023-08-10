@@ -10,7 +10,7 @@ import {
   getLocalData,
   logOut,
 } from "../../utils";
-import {postApiData} from "../../helpers/CRUD";
+import {postApiDataWithoutHeader} from "../../helpers/CRUD";
 import {showMessage} from "react-native-flash-message";
 
 const Login = ({navigation}) => {
@@ -54,7 +54,7 @@ const Login = ({navigation}) => {
   const onSubmit = async () => {
     setLoading(true);
     try {
-      const result = await postApiData("/signin", form);
+      const result = await postApiDataWithoutHeader("/signin", form);
       setLoading(false);
       if (result.data.success) {
         setForm("reset");

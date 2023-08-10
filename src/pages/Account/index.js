@@ -49,7 +49,7 @@ export default function Account({navigation}) {
       const result = await postApiData("/user/signout");
       setLoading(false);
       if (result.data.success) {
-        logOut("token", "Account", result.data.message);
+        logOut(navigation, "Account", result.data.message);
       } else {
         showMessage({
           message: result.data.message,
@@ -57,7 +57,6 @@ export default function Account({navigation}) {
         });
       }
     } catch (error) {
-      console.log(error.response);
       setLoading(false);
       showMessage({
         message: "Gagal Logout!",
