@@ -24,31 +24,20 @@ const Login = ({navigation}) => {
     getToken();
   }, []);
 
-  const getToken = () => {
-    getLocalData("token").then(
-      res => {
-        if (res !== null) {
-          const {exp} = res;
-          const dateNow = new Date();
-          if (exp < dateNow.getTime()) {
-            navigation.replace("MainApp");
-          } else {
-            logOut(
-              navigation,
-              "Login",
-              "Sesi login anda berakhir. Silahkan login ulang!",
-            );
-          }
+  const getToken = async () => {
+    try {
+      const res = await getLocalData("token");
+      if (res !== null) {
+        const dateNow = new Date();
+        if (res.exp < dateNow.getTime()) {
+          navigation.replace("MainApp");
+        } else {
+          logOut(navigation, "Login", "Silahkan login ulang!");
         }
-      },
-      err => {
-        logOut(
-          navigation,
-          "Login",
-          "Sesi login anda berakhir. Silahkan login ulang!",
-        );
-      },
-    );
+      }
+    } catch (error) {
+      logOut(navigation, "Login", "Silahkan login ulang!");
+    }
   };
 
   const onSubmit = async () => {

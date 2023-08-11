@@ -16,31 +16,28 @@ export default function Account({navigation}) {
     getToken();
   }, []);
 
-  const getToken = () => {
-    getLocalData("token").then(
-      res => {
-        if (res !== null) {
-          const {exp} = res;
-          const dateNow = new Date();
-          if (exp < dateNow.getTime()) {
-            setData(res);
-          } else {
-            logOut(
-              navigation,
-              "Account",
-              "Sesi login anda berakhir. Silahkan login ulang!",
-            );
-          }
+  const getToken = async () => {
+    try {
+      const res = await getLocalData("token");
+      if (res !== null) {
+        const dateNow = new Date();
+        if (res.exp < dateNow.getTime()) {
+          setData(res);
+        } else {
+          logOut(
+            navigation,
+            "Account",
+            "Sesi login anda berakhir. Silahkan login ulang!",
+          );
         }
-      },
-      err => {
-        logOut(
-          navigation,
-          "Account",
-          "Sesi login anda berakhir. Silahkan login ulang!",
-        );
-      },
-    );
+      }
+    } catch (error) {
+      logOut(
+        navigation,
+        "Account",
+        "Sesi login anda berakhir. Silahkan login ulang!",
+      );
+    }
   };
 
   const onLogout = async () => {

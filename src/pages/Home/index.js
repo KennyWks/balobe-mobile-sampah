@@ -6,6 +6,7 @@ import {colors, fonts, getLocalData, logOut} from "../../utils";
 import PickupDropOff from "../../components/molecules/PickupDropOff";
 import {getApiData} from "../../helpers/CRUD";
 import {useBottomTabBarHeight} from "@react-navigation/bottom-tabs";
+import {showMessage} from "react-native-flash-message";
 
 export default function Home({navigation}) {
   const tabBarHeight = useBottomTabBarHeight();
@@ -17,29 +18,26 @@ export default function Home({navigation}) {
     getToken();
   }, []);
 
-  const getToken = () => {
-    getLocalData("token").then(
-      res => {
-        if (res !== null) {
-          const {exp} = res;
-          const dateNow = new Date();
-          if (exp > dateNow.getTime()) {
-            logOut(
-              navigation,
-              "Home",
-              "Sesi login anda berakhir. Silahkan login ulang!",
-            );
-          }
+  const getToken = async () => {
+    try {
+      const res = await getLocalData("token");
+      if (res !== null) {
+        const dateNow = new Date();
+        if (res.exp > dateNow.getTime()) {
+          logOut(
+            navigation,
+            "Home",
+            "Sesi login anda berakhir. Silahkan login ulang!",
+          );
         }
-      },
-      err => {
-        logOut(
-          navigation,
-          "Home",
-          "Sesi login anda berakhir. Silahkan login ulang!",
-        );
-      },
-    );
+      }
+    } catch (error) {
+      logOut(
+        navigation,
+        "Home",
+        "Sesi login anda berakhir. Silahkan login ulang!",
+      );
+    }
   };
 
   const onRefreshEvents = useCallback(() => {
@@ -55,6 +53,7 @@ export default function Home({navigation}) {
         setNews(result.data.data);
       }
     } catch (e) {
+      console.log(e);
       showMessage({
         message: "Data gagal di ambil",
         type: "danger",

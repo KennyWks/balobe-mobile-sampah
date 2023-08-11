@@ -1,7 +1,7 @@
 import axios from "axios";
 import {getLocalData} from "../utils";
 
-export const url = "http://192.168.1.22:8000";
+export const url = "http://192.168.1.29:8000";
 const route = url + "/api";
 
 export const postApiDataWithoutHeader = async (path, data = {}) => {
@@ -26,10 +26,9 @@ export const postApiData = async (path, data = {}) => {
   }
 };
 
-
 export const getApiData = async path => {
   try {
-    const response = await axios.get(host + path);
+    const response = await axios.get(route + path);
     return response;
   } catch (error) {
     throw error;
