@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import {colors} from "../../../utils";
 
-function Dropdown({label, data, onValueChange}) {
+function Dropdown({label, data, onValueChange, value}) {
   return (
     <View style={styles.container}>
       <Text style={styles.textLabel}>{label}</Text>
@@ -15,6 +15,7 @@ function Dropdown({label, data, onValueChange}) {
         }}
         items={data}
         style={pickerSelectStyles}
+        value={value}
       />
     </View>
   );

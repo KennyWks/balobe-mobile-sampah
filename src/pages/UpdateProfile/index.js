@@ -1,4 +1,4 @@
-import {StyleSheet, View, ScrollView} from "react-native";
+import {StyleSheet, View, ScrollView, Text} from "react-native";
 import React, {useState, useEffect} from "react";
 import {
   Loading,
@@ -15,7 +15,6 @@ import {
   getLocalData,
   removeLocalData,
   storeLocalData,
-  useForm,
   logOut,
 } from "../../utils";
 import {IconRemove} from "../../assets";
@@ -29,6 +28,16 @@ export default function UpdateProfile({navigation}) {
   ]);
   const [loading, setLoading] = useState(false);
 
+  const [user_id, setUserId] = useState("");
+  const [name, setName] = useState("");
+  const [jk, setJK] = useState("");
+  const [tgl_lahir, setTglLahir] = useState("");
+  const [no_hp, setNoHp] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [pekerjaan, setPekerjaan] = useState("");
+  const [alamat, setAlamat] = useState("");
+
   useEffect(() => {
     getToken();
   }, []);
@@ -39,14 +48,14 @@ export default function UpdateProfile({navigation}) {
       if (res !== null) {
         const dateNow = new Date();
         if (res.exp < dateNow.getTime()) {
-          console.log(res);
-          setForm("user_id", res.user_id);
-          setForm("name", res.name);
-          setForm("jk", res.jk);
-          setForm("tglLahir", res.tgl_lahir);
-          setForm("noHP", res.no_hp);
-          setForm("email", res.email);
-          setForm("pekerjaan", res.pekerjaan);
+          setUserId(res.user_id);
+          setName(res.name);
+          setJK(res.jk);
+          setTglLahir(res.tgl_lahir);
+          setNoHp(res.no_hp);
+          setEmail(res.email);
+          setPekerjaan(res.pekerjaan);
+          setAlamat(res.alamat);
         } else {
           logOut(
             navigation,
@@ -64,27 +73,24 @@ export default function UpdateProfile({navigation}) {
     }
   };
 
-  const [form, setForm] = useForm({
-    user_id: "",
-    name: "",
-    jk: "",
-    tglLahir: "",
-    noHP: "",
-    email: "",
-    password: "",
-    pekerjaan: "",
-    alamat: "",
-  });
-
   const uploadPhoto = async () => {
     setLoading(true);
     try {
-      const result = await postApiData("/user/createorupdate", form);
+      const result = await postApiData("/user/createorupdate", {
+        user_id: user_id,
+        name: name,
+        jk: jk,
+        tgl_lahir: tgl_lahir,
+        no_hp: no_hp,
+        email: email,
+        password: password,
+        pekerjaan: pekerjaan,
+      });
       if (result.data.success) {
         await postApiData("/user/signout");
         const user = await postApiDataWithoutHeader("/signin", {
-          email: data.email,
-          password: data.password,
+          email: email,
+          password: password,
         });
         removeLocalData("token");
         storeLocalData("token", user.data.token);
@@ -118,73 +124,77 @@ export default function UpdateProfile({navigation}) {
             </View>
           </View>
           <View style={styles.formContent}>
+            <Text style={{color: "red", fontSize: 13, marginVertical: 10}}>
+              * Wajib diisi
+            </Text>
             <Input
-              onChangeText={value => setForm("name", value)}
+              label="Email*"
               isPassword={false}
               type="inputtext"
-              value={form.name}
+              keyboardType="email-address"
+              onChangeText={value => setEmail(value)}
+              value={email}
+            />
+            <Gap height={24} />
+            <Input
+              label="Password*"
+              isPassword={true}
+              type="inputtext"
               keyboardType="default"
+              onChangeText={value => setPassword(value)}
+            />
+            <Gap height={24} />
+            <Input
               label="Nama"
+              isPassword={false}
+              type="inputtext"
+              keyboardType="default"
+              onChangeText={value => setName(value)}
+              value={name}
             />
             <Gap height={22} />
             <Dropdown
               label={"Jenis Kelamin"}
               data={gender}
-              value={form.jk}
               onValueChange={value => {
-                setForm("jk", value);
+                setJK(value);
               }}
+              value={jk}
             />
             <Gap height={22} />
             <DatePicker
               label="Tanggal Lahir"
-              value={form.tglLahir}
               onChoose={value => {
-                setForm("tglLahir", value);
+                setTglLahir(value);
               }}
+              value={tgl_lahir ? new Date(tgl_lahir) : "Tanggal Lahir"}
             />
             <Gap height={40} />
             <Input
-              onChangeText={value => setForm("noHP", value)}
-              isPassword={false}
-              type="inputtext"
-              value={form.noHP}
-              keyboardType="phone-pad"
               label="No. Ponsel"
-            />
-            <Gap height={24} />
-            <Input
-              onChangeText={value => setForm("email", value)}
               isPassword={false}
               type="inputtext"
-              value={form.email}
-              keyboardType="email-address"
-              label="Email"
+              keyboardType="phone-pad"
+              onChangeText={value => setNoHp(value)}
+              value={no_hp}
             />
             <Gap height={24} />
             <Input
-              onChangeText={value => setForm("password", value)}
-              isPassword={true}
-              type="inputtext"
-              keyboardType="default"
-              label="Password"
-            />
-            <Gap height={24} />
-            <Input
-              onChangeText={value => setForm("pekerjaan", value)}
-              isPassword={false}
-              value={form.pekerjaan}
-              type="inputtext"
-              keyboardType="default"
               label="Pekerjaan"
+              isPassword={false}
+              type="inputtext"
+              keyboardType="default"
+              onChangeText={value => setPekerjaan(value)}
+              value={pekerjaan}
             />
             <Gap height={24} />
             <Input
+              label="Alamat"
               isPassword={false}
               type="textarea"
-              value={form.alamat}
               keyboardType="default"
-              label="Alamat"
+              onChangeText={value => setAlamat(value)}
+              value={alamat}
             />
             <Gap height={24} />
             <View>

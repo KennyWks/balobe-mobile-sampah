@@ -6,8 +6,8 @@ import {colors, fonts} from "../../../utils";
 import moment from "moment";
 import "moment/locale/id";
 
-function DatePicker({label, onChoose}) {
-  const [date, setDate] = useState("Tanggal Lahir");
+function DatePicker({label, onChoose, value}) {
+  const [date, setDate] = useState(value);
   const [open, setOpen] = useState(false);
 
   return (

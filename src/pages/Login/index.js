@@ -48,7 +48,7 @@ const Login = ({navigation}) => {
       if (result.data.success) {
         setForm("reset");
         showMessage({
-          message: "Berhasil Login",
+          message: "Berhasil Login!",
           type: "success",
         });
         storeLocalData("token", result.data.token);
