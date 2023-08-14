@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {StyleSheet, Text, View} from "react-native";
 import DatePickerInput from "react-native-date-picker";
 import {TouchableOpacity} from "react-native-gesture-handler";
@@ -7,6 +7,10 @@ import moment from "moment";
 import "moment/locale/id";
 
 function DatePicker({label, onChoose, value}) {
+  useEffect(() => {
+    setDate(new Date(value));
+  }, [value]);
+
   const [date, setDate] = useState(value);
   const [open, setOpen] = useState(false);
 
@@ -29,7 +33,7 @@ function DatePicker({label, onChoose, value}) {
         confirmText="Ok"
         cancelText="Batal"
         open={open}
-        date={date === "Tanggal Lahir" ? new Date() : date}
+        date={date}
         onConfirm={value => {
           setDate(value);
           onChoose(value);

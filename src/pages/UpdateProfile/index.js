@@ -43,6 +43,7 @@ export default function UpdateProfile({navigation}) {
   }, []);
 
   const getToken = async () => {
+    setLoading(true);
     try {
       const res = await getLocalData("token");
       if (res !== null) {
@@ -56,7 +57,9 @@ export default function UpdateProfile({navigation}) {
           setEmail(res.email);
           setPekerjaan(res.pekerjaan);
           setAlamat(res.alamat);
+          setLoading(false);
         } else {
+          setLoading(false);
           logOut(
             navigation,
             "UpdateProfile",
@@ -65,6 +68,7 @@ export default function UpdateProfile({navigation}) {
         }
       }
     } catch (error) {
+      setLoading(false);
       logOut(
         navigation,
         "UpdateProfile",
@@ -167,7 +171,7 @@ export default function UpdateProfile({navigation}) {
               onChoose={value => {
                 setTglLahir(value);
               }}
-              value={tgl_lahir ? new Date(tgl_lahir) : "Tanggal Lahir"}
+              value={tgl_lahir != "" ? tgl_lahir : new Date()}
             />
             <Gap height={40} />
             <Input

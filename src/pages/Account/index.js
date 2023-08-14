@@ -55,10 +55,14 @@ export default function Account({navigation}) {
       }
     } catch (error) {
       setLoading(false);
-      showMessage({
-        message: "Gagal Logout!",
-        type: "danger",
-      });
+      if (error.response.data.message == "Token is Expired") {
+        logOut(navigation, "Account", "Token is Expired");
+      } else {
+        showMessage({
+          message: "Gagal Logout!",
+          type: "danger",
+        });
+      }
     }
   };
 
