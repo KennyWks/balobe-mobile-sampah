@@ -1,48 +1,59 @@
 import {StyleSheet, Text, View, ScrollView} from "react-native";
-import React, {useState} from "react";
-import {OrdersItem} from "../../components";
+import React, {useEffect, useState} from "react";
+import {OrdersItem, Loading} from "../../components";
 import {colors, fonts} from "../../utils";
 import {useBottomTabBarHeight} from "@react-navigation/bottom-tabs";
+import {getApiData} from "../../helpers/CRUD";
 
 export default function Orders({navigation}) {
   const tabBarHeight = useBottomTabBarHeight();
+  const [loading, setLoading] = useState(false);
+  const [order, setOrder] = useState([]);
 
-  const [order, setOrder] = useState([
-    {id: 1, name: "Transaksi 1", desc: "silahkan cek point anda"},
-    {id: 2, name: "Transaksi 2", desc: "silahkan cek saldo anda"},
-    {id: 3, name: "Transaksi 3", desc: "barang dalam perjalanan"},
-    {id: 4, name: "Transaksi 3", desc: "barang dalam perjalanan"},
-    {id: 5, name: "Transaksi 3", desc: "barang dalam perjalanan"},
-    {id: 6, name: "Transaksi 3", desc: "barang dalam perjalanan"},
-    {id: 7, name: "Transaksi 3", desc: "barang dalam perjalanan"},
-    {id: 8, name: "Transaksi 3", desc: "barang dalam perjalanan"},
-  ]);
+  useEffect(() => {
+    getOrders();
+  }, []);
+
+  const getOrders = async () => {
+    setLoading(true);
+    try {
+      const result = await getApiData("/user/transaction");
+      setOrder(result.data.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
 
   return (
-    <View style={styles.container(tabBarHeight)}>
-      <View style={styles.content}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={styles.title}>Daftar Pesanan</Text>
-          {order.length > 0 &&
-            order.map(v => (
-              <OrdersItem
-                key={v.id}
-                name={v.name}
-                desc={v.desc}
-                onPress={() => {
-                  navigation.navigate({
-                    name: "DetailOrder",
-                    params: {
-                      name: v.name,
-                      desc: v.desc,
-                    },
-                  });
-                }}
-              />
-            ))}
-        </ScrollView>
+    <>
+      <View style={styles.container(tabBarHeight)}>
+        <View style={styles.content}>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <Text style={styles.title}>Daftar Pesanan</Text>
+            {order.length > 0 &&
+              order.map(v => (
+                <OrdersItem
+                  key={v.transaction_id}
+                  judul={v.judul}
+                  deskripsi={v.deskripsi}
+                  onPress={() => {
+                    navigation.navigate({
+                      name: "DetailOrder",
+                      params: {
+                        judul: v.judul,
+                        deskripsi: v.deskripsi,
+                      },
+                    });
+                  }}
+                />
+              ))}
+          </ScrollView>
+        </View>
       </View>
-    </View>
+      {loading && <Loading />}
+    </>
   );
 }
 

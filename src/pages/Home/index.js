@@ -4,7 +4,7 @@ import HomeProfile from "../../components/molecules/HomeProfile";
 import NewsItem from "../../components/molecules/NewsItem";
 import {colors, fonts, getLocalData, logOut} from "../../utils";
 import PickupDropOff from "../../components/molecules/PickupDropOff";
-import {getApiData} from "../../helpers/CRUD";
+import {getApiDataWithoutHeader} from "../../helpers/CRUD";
 import {useBottomTabBarHeight} from "@react-navigation/bottom-tabs";
 import {showMessage} from "react-native-flash-message";
 
@@ -48,7 +48,7 @@ export default function Home({navigation}) {
 
   const getNews = async () => {
     try {
-      const result = await getApiData("/news");
+      const result = await getApiDataWithoutHeader("/news");
       if (result.data) {
         setNews(result.data.data);
       }

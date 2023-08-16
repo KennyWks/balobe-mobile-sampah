@@ -3,7 +3,7 @@ import React from "react";
 import {colors, fonts} from "../../../utils";
 import MiIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
-export default function OrdersItem({name, desc, onPress}) {
+export default function OrdersItem({judul, deskripsi, onPress}) {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.wrappContainer}>
@@ -15,8 +15,8 @@ export default function OrdersItem({name, desc, onPress}) {
             style={styles.icon}
           />
           <View>
-            <Text style={styles.name}>{name}</Text>
-            <Text style={styles.desc}>{desc}</Text>
+            <Text style={styles.name}>{judul}</Text>
+            <Text style={styles.desc}>{deskripsi}</Text>
           </View>
         </View>
         <MiIcon

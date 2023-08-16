@@ -3,7 +3,7 @@ import React, {useState, useEffect} from "react";
 import {colors, fonts} from "../../utils";
 import {ScrollView} from "react-native-gesture-handler";
 import {Header} from "../../components";
-import {url, getApiData} from "../../helpers/CRUD";
+import {url, getApiDataWithoutHeader} from "../../helpers/CRUD";
 
 export default function ReadNews({navigation, route}) {
   const {id} = route.params;
@@ -16,7 +16,7 @@ export default function ReadNews({navigation, route}) {
 
   const readNews = async () => {
     try {
-      const result = await getApiData("/news/" + id);
+      const result = await getApiDataWithoutHeader("/news/" + id);
       if (result.data) {
         setNews(result.data.data);
       }
