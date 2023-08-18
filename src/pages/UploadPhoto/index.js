@@ -1,17 +1,23 @@
 import {Image, StyleSheet, Text, View, TouchableOpacity} from "react-native";
 import React, {useState} from "react";
-import {Button, Gap, Header, Link} from "../../components";
+import {Button, Gap, Header, Link, Loading} from "../../components";
 import {ILPhotoProfileIsNull, IconPlus, IconRemove} from "../../assets";
 import {colors, fonts} from "../../utils";
 import {launchImageLibrary} from "react-native-image-picker";
 import {showMessage} from "react-native-flash-message";
+import {postApiData} from "../../helpers/CRUD";
 
-export default function UploadPhoto({navigation}) {
+export default function UploadPhoto({navigation, route}) {
+  const {user_id} = route.params;
+
+  const [photoUri, setPhotoUri] = useState(ILPhotoProfileIsNull);
   const [hasPhoto, setHasPhoto] = useState(false);
-  const [photo, setPhoto] = useState(ILPhotoProfileIsNull);
+  const [photoType, setPhotoType] = useState("");
+  const [photo, setPhoto] = useState("");
+  const [loading, setLoading] = useState(false);
   const getImage = () => {
     launchImageLibrary(
-      {quality: 0.5, maxHeight: 200, maxWidth: 200},
+      {quality: 0.5, maxHeight: 200, maxWidth: 200, includeBase64: true},
       response => {
         if (response.didCancel || response.errorCode) {
           showMessage({
@@ -20,12 +26,38 @@ export default function UploadPhoto({navigation}) {
           });
         } else {
           const source = {uri: response.assets[0].uri};
-          setPhoto(source);
+          setPhotoUri(source);
           setHasPhoto(true);
+          setPhotoType(response.assets[0].type);
+          setPhoto(response.assets[0].base64);
         }
       },
     );
   };
+
+  const uploadAndContinue = async () => {
+    setLoading(true);
+    try {
+      const result = await postApiData("/user/upload-photo", {
+        user_id: user_id,
+        photo: photo,
+        type: photoType,
+      });
+      setLoading(false);
+      showMessage({
+        message: "Data berhasil diproses!",
+        type: "success",
+      });
+      // navigation.replace("MainApp");
+    } catch (error) {
+      setLoading(false);
+      showMessage({
+        message: "Data gagal diproses!",
+        type: "danger",
+      });
+    }
+  };
+
   return (
     <View style={styles.page}>
       <Header
@@ -36,7 +68,7 @@ export default function UploadPhoto({navigation}) {
       <View style={styles.content}>
         <View style={styles.profile}>
           <TouchableOpacity style={styles.avatarWrapper} onPress={getImage}>
-            <Image style={styles.avatar} source={photo} />
+            <Image style={styles.avatar} source={photoUri} />
             {hasPhoto && <IconRemove style={styles.addPhoto} />}
             {!hasPhoto && <IconPlus style={styles.addPhoto} />}
           </TouchableOpacity>
@@ -47,9 +79,7 @@ export default function UploadPhoto({navigation}) {
           <Button
             disable={!hasPhoto}
             title="Unggah & Lanjutkan"
-            onPress={() => {
-              navigation.replace("MainApp");
-            }}
+            onPress={uploadAndContinue}
           />
           <Gap height={30} />
           <Link
@@ -62,6 +92,7 @@ export default function UploadPhoto({navigation}) {
           />
         </View>
       </View>
+      {loading && <Loading />}
     </View>
   );
 }

@@ -99,7 +99,16 @@ export default function UpdateProfile({navigation}) {
         removeLocalData("token");
         storeLocalData("token", user.data.token);
         setLoading(false);
-        navigation.navigate("UploadPhoto");
+        showMessage({
+          message: "Data berhasil diproses!",
+          type: "success",
+        });
+        // navigation.navigate({
+        //   name: "UploadPhoto",
+        //   params: {
+        //     user_id: user_id,
+        //   },
+        // });
       } else {
         setLoading(false);
         showMessage({
@@ -202,7 +211,21 @@ export default function UpdateProfile({navigation}) {
             />
             <Gap height={24} />
             <View>
-              <Button title="Upload Foto" onPress={uploadPhoto} />
+              <Button title="Simpan" onPress={uploadPhoto} />
+            </View>
+            <Gap height={10} />
+            <View>
+              <Button
+                title="Upload Foto"
+                onPress={() => {
+                  navigation.navigate({
+                    name: "UploadPhoto",
+                    params: {
+                      user_id: user_id,
+                    },
+                  });
+                }}
+              />
             </View>
           </View>
         </ScrollView>
