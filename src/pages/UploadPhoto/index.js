@@ -2,7 +2,7 @@ import {Image, StyleSheet, Text, View, TouchableOpacity} from "react-native";
 import React, {useState} from "react";
 import {Button, Gap, Header, Link, Loading} from "../../components";
 import {ILPhotoProfileIsNull, IconPlus, IconRemove} from "../../assets";
-import {colors, fonts} from "../../utils";
+import {colors, fonts, getLocalData, storeLocalData} from "../../utils";
 import {launchImageLibrary} from "react-native-image-picker";
 import {showMessage} from "react-native-flash-message";
 import {postApiData} from "../../helpers/CRUD";
@@ -28,8 +28,10 @@ export default function UploadPhoto({navigation, route}) {
           const source = {uri: response.assets[0].uri};
           setPhotoUri(source);
           setHasPhoto(true);
-          setPhotoType(response.assets[0].type);
-          setPhoto(response.assets[0].base64);
+
+          const data = response.assets[0];
+          setPhotoType(data.type);
+          setPhoto(`data:${data.type};base64, ${data.base64}`);
         }
       },
     );
@@ -43,11 +45,19 @@ export default function UploadPhoto({navigation, route}) {
         photo: photo,
         type: photoType,
       });
+      if (result.data.success) {
+        await storeLocalData("photo", photo);
+        showMessage({
+          message: "Data berhasil diproses!",
+          type: "success",
+        });
+      } else {
+        showMessage({
+          message: "Data gagal diunggah!",
+          type: "danger",
+        });
+      }
       setLoading(false);
-      showMessage({
-        message: "Data berhasil diproses!",
-        type: "success",
-      });
       // navigation.replace("MainApp");
     } catch (error) {
       setLoading(false);

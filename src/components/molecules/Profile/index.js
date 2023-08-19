@@ -1,13 +1,12 @@
 import {StyleSheet, Text, View, Image} from "react-native";
 import React from "react";
-import {UserProfile1} from "../../../assets";
 import {colors, fonts} from "../../../utils";
 
-export default function Profile({name, desc}) {
+export default function Profile({name, desc, photo}) {
   return (
     <View>
       <View style={styles.borderProfilImage}>
-        <Image source={UserProfile1} style={styles.avatar} />
+        <Image source={photo} style={styles.avatar} />
         {name && (
           <View style={styles.textWrapper}>
             <Text style={styles.name}>{name}</Text>
@@ -40,6 +39,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.primary[600],
     color: colors.text.primary,
     marginTop: 16,
+    textTransform: "capitalize",
   },
   point: {
     fontSize: 16,

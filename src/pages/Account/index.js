@@ -5,24 +5,30 @@ import {colors, getLocalData, logOut} from "../../utils";
 import {useBottomTabBarHeight} from "@react-navigation/bottom-tabs";
 import {postApiData} from "../../helpers/CRUD";
 import {showMessage} from "react-native-flash-message";
+import {ILPhotoProfileIsNull} from "../../assets";
 
 export default function Account({navigation}) {
   const point = 0;
   const tabBarHeight = useBottomTabBarHeight();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(false);
+  const [photo, setPhoto] = useState(ILPhotoProfileIsNull);
 
   useEffect(() => {
     getToken();
-  }, []);
+  }, [photo]);
 
   const getToken = async () => {
     try {
-      const res = await getLocalData("token");
-      if (res !== null) {
+      const token = await getLocalData("token");
+      const photo = await getLocalData("photo", false);
+      if (token !== null) {
         const dateNow = new Date();
-        if (res.exp < dateNow.getTime()) {
-          setData(res);
+        if (token.exp < dateNow.getTime()) {
+          setData(token);
+          if (photo) {
+            setPhoto({uri: photo.replace(/\"/g, "")});
+          }
         } else {
           logOut(
             navigation,
@@ -71,7 +77,7 @@ export default function Account({navigation}) {
       <View style={styles.container(tabBarHeight)}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.wrapperProfile}>
-            <Profile name={data.name} desc={`${point} Poin`} />
+            <Profile name={data.name} desc={`${point} Poin`} photo={photo} />
           </View>
           <MenuProfile
             icon="pencil-outline"

@@ -51,7 +51,7 @@ const Login = ({navigation}) => {
           message: "Berhasil Login!",
           type: "success",
         });
-        storeLocalData("token", result.data.token);
+        await storeLocalData("token", result.data.token);
         setTimeout(() => {
           navigation.replace("MainApp");
         }, 500);

@@ -53,7 +53,6 @@ export default function Home({navigation}) {
         setNews(result.data.data);
       }
     } catch (e) {
-      console.log(e);
       showMessage({
         message: "Data gagal di ambil",
         type: "danger",

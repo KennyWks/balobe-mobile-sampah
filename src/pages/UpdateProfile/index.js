@@ -8,7 +8,6 @@ import {
   Gap,
   Dropdown,
   DatePicker,
-  Profile,
 } from "../../components";
 import {
   colors,
@@ -17,7 +16,6 @@ import {
   storeLocalData,
   logOut,
 } from "../../utils";
-import {IconRemove} from "../../assets";
 import {showMessage} from "react-native-flash-message";
 import {postApiData, postApiDataWithoutHeader} from "../../helpers/CRUD";
 
@@ -96,8 +94,8 @@ export default function UpdateProfile({navigation}) {
           email: email,
           password: password,
         });
-        removeLocalData("token");
-        storeLocalData("token", user.data.token);
+        await removeLocalData("token");
+        await storeLocalData("token", user.data.token);
         setLoading(false);
         showMessage({
           message: "Data berhasil diproses!",
@@ -130,14 +128,14 @@ export default function UpdateProfile({navigation}) {
       <View style={styles.page}>
         <Header navigation={navigation} title="Ubah Profil" />
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.profileContent}>
-            <View style={styles.wrapperProfile}>
-              <Profile />
-              <IconRemove style={styles.removeIcon} />
-            </View>
-          </View>
           <View style={styles.formContent}>
-            <Text style={{color: "red", fontSize: 13, marginVertical: 10}}>
+            <Text
+              style={{
+                color: "red",
+                fontSize: 13,
+                marginTop: 20,
+                marginBottom: 10,
+              }}>
               * Wajib diisi
             </Text>
             <Input
@@ -216,7 +214,7 @@ export default function UpdateProfile({navigation}) {
             <Gap height={10} />
             <View>
               <Button
-                title="Upload Foto"
+                title="Unggah Foto"
                 onPress={() => {
                   navigation.navigate({
                     name: "UploadPhoto",

@@ -1,7 +1,7 @@
 import axios from "axios";
 import {getLocalData} from "../utils";
 
-export const url = "http://192.168.93.60:8089";
+export const url = "http://192.168.249.60:8089";
 const route = url + "/api";
 
 export const postApiDataWithoutHeader = async (path, data = {}) => {
