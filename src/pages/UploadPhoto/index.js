@@ -69,41 +69,43 @@ export default function UploadPhoto({navigation, route}) {
   };
 
   return (
-    <View style={styles.page}>
-      <Header
-        type="default"
-        title="Unggah Foto Profil"
-        navigation={navigation}
-      />
-      <View style={styles.content}>
-        <View style={styles.profile}>
-          <TouchableOpacity style={styles.avatarWrapper} onPress={getImage}>
-            <Image style={styles.avatar} source={photoUri} />
-            {hasPhoto && <IconRemove style={styles.addPhoto} />}
-            {!hasPhoto && <IconPlus style={styles.addPhoto} />}
-          </TouchableOpacity>
-          <Text style={styles.name}>Nama User</Text>
-          <Text style={styles.proffesion}>Pekerjaan USer</Text>
-        </View>
-        <View>
-          <Button
-            disable={!hasPhoto}
-            title="Unggah & Lanjutkan"
-            onPress={uploadAndContinue}
-          />
-          <Gap height={30} />
-          <Link
-            title="Lewati proses ini"
-            align="center"
-            center={16}
-            onPress={() => {
-              navigation.replace("MainApp");
-            }}
-          />
+    <>
+      <View style={styles.page}>
+        <Header
+          type="default"
+          title="Unggah Foto Profil"
+          navigation={navigation}
+        />
+        <View style={styles.content}>
+          <View style={styles.profile}>
+            <TouchableOpacity style={styles.avatarWrapper} onPress={getImage}>
+              <Image style={styles.avatar} source={photoUri} />
+              {hasPhoto && <IconRemove style={styles.addPhoto} />}
+              {!hasPhoto && <IconPlus style={styles.addPhoto} />}
+            </TouchableOpacity>
+            <Text style={styles.name}>Nama User</Text>
+            <Text style={styles.proffesion}>Pekerjaan USer</Text>
+          </View>
+          <View>
+            <Button
+              disable={!hasPhoto}
+              title="Unggah & Lanjutkan"
+              onPress={uploadAndContinue}
+            />
+            <Gap height={30} />
+            <Link
+              title="Lewati proses ini"
+              align="center"
+              center={16}
+              onPress={() => {
+                navigation.replace("MainApp");
+              }}
+            />
+          </View>
         </View>
       </View>
       {loading && <Loading />}
-    </View>
+    </>
   );
 }
 

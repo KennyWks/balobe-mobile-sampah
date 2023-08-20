@@ -75,10 +75,10 @@ export default function UpdateProfile({navigation}) {
     }
   };
 
-  const uploadPhoto = async () => {
+  const onSave = async () => {
     setLoading(true);
     try {
-      const result = await postApiData("/user/createorupdate", {
+      const result = await postApiData("/user/update", {
         user_id: user_id,
         name: name,
         jk: jk,
@@ -209,7 +209,7 @@ export default function UpdateProfile({navigation}) {
             />
             <Gap height={24} />
             <View>
-              <Button title="Simpan" onPress={uploadPhoto} />
+              <Button title="Simpan" onPress={onSave} />
             </View>
             <Gap height={10} />
             <View>
