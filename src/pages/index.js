@@ -11,6 +11,7 @@ import Account from "./Account";
 import Chatting from "./Chatting";
 import ReadNews from "./ReadNews";
 import UpdateProfile from "./UpdateProfile";
+import Pickup from "./Pickup";
 
 export {
   Splash,
@@ -26,4 +27,5 @@ export {
   Chatting,
   ReadNews,
   UpdateProfile,
+  Pickup,
 };

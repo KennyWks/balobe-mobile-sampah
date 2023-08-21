@@ -76,7 +76,9 @@ export default function Home({navigation}) {
           desc="Mitra akan menjemput sampahmu"
           icon="truck-fast-outline"
           color={colors.greenLight}
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate("Pickup");
+          }}
         />
         <PickupDropOff
           name="Drop Off"

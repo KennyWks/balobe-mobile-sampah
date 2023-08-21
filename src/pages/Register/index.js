@@ -51,7 +51,6 @@ const Register = ({navigation}) => {
         });
       }
     } catch (error) {
-      console.log(error.response);
       setLoading(false);
       showMessage({
         message: "Gagal diproses!",

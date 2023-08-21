@@ -14,6 +14,7 @@ import {
   Chatting,
   ReadNews,
   UpdateProfile,
+  Pickup,
 } from "../src/pages";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import BottomNavigator from "../src/components/molecules/BottomNavigator";
@@ -74,6 +75,10 @@ const Router = () => {
       <Stack.Screen
         name="UpdateProfile"
         component={UpdateProfile}
+        options={{headerShown: false}}></Stack.Screen>
+      <Stack.Screen
+        name="Pickup"
+        component={Pickup}
         options={{headerShown: false}}></Stack.Screen>
     </Stack.Navigator>
   );
