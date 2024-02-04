@@ -4,9 +4,9 @@ import {Button, Gap} from "../../atoms";
 import {colors, fonts} from "../../../utils";
 import DarkProfile from "./DarkProfile";
 
-export default function Header({navigation, title, type}) {
+export default function Header({navigation, title, type, photo}) {
   if (type === "profile") {
-    return <DarkProfile name={title} navigation={navigation} />;
+    return <DarkProfile name={title} navigation={navigation} photo={photo}  />;
   }
   return (
     <View style={styles.container}>

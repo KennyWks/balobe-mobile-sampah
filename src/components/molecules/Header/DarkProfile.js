@@ -4,7 +4,7 @@ import {colors, fonts} from "../../../utils";
 import {UserProfile1} from "../../../assets";
 import {Button} from "../../atoms";
 
-export default function DarkProfile({navigation, name}) {
+export default function DarkProfile({navigation, name, photo}) {
   return (
     <View style={styles.container}>
       <Button

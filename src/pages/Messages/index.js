@@ -28,6 +28,7 @@ export default function Messages({navigation}) {
                 params: {
                   id: 1,
                   name: "Budi",
+                  photo:"",
                 },
               });
             }}
@@ -42,6 +43,7 @@ export default function Messages({navigation}) {
                 params: {
                   id: 2,
                   name: "Rudi",
+                  photo:"",
                 },
               });
             }}
@@ -56,6 +58,7 @@ export default function Messages({navigation}) {
                 params: {
                   id: 3,
                   name: "Rini",
+                  photo:"",
                 },
               });
             }}
@@ -70,6 +73,7 @@ export default function Messages({navigation}) {
                 params: {
                   id: 2,
                   name: "Ani",
+                  photo:"",
                 },
               });
             }}
@@ -84,6 +88,7 @@ export default function Messages({navigation}) {
                 params: {
                   id: 2,
                   name: "Ani",
+                  photo:"",
                 },
               });
             }}
@@ -98,6 +103,7 @@ export default function Messages({navigation}) {
                 params: {
                   id: 2,
                   name: "Ani",
+                  photo:"",
                 },
               });
             }}
@@ -112,6 +118,7 @@ export default function Messages({navigation}) {
                 params: {
                   id: 2,
                   name: "Ani",
+                  photo:"",
                 },
               });
             }}
@@ -126,6 +133,7 @@ export default function Messages({navigation}) {
                 params: {
                   id: 2,
                   name: "Ani",
+                  photo:"",
                 },
               });
             }}
@@ -140,6 +148,7 @@ export default function Messages({navigation}) {
                 params: {
                   id: 2,
                   name: "Ani",
+                  photo:"",
                 },
               });
             }}
@@ -154,6 +163,7 @@ export default function Messages({navigation}) {
                 params: {
                   id: 2,
                   name: "Ani",
+                  photo:"",
                 },
               });
             }}

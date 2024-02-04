@@ -4,10 +4,10 @@ import {ChatItem, Header, InputChat} from "../../components";
 import {colors, fonts} from "../../utils";
 
 export default function Chatting({navigation, route}) {
-  const {id, name} = route.params;
+  const {id, name, photo} = route.params;
   return (
     <View style={styles.page}>
-      <Header type="profile" title={name} navigation={navigation} />
+      <Header type="profile" title={name} navigation={navigation} photo={photo} />
       <View style={styles.content}>
         <Text style={styles.chatDate}>Senin, 12 April 2022</Text>
         <ChatItem isMe message="Hallo, Barang su sampe ko?" time="4.30" />
